@@ -8,7 +8,7 @@ Ball::Ball():Object()
     x=0.;
     y=-15.;
     z=0.;
-    size=4.;
+    size=3.5;
 
 
 }
@@ -36,6 +36,7 @@ void Ball::Display()
 
 
     //Dessin sphere
+    glColor3ub(187, 11, 11);
     gluSphere(quadrique,size,50,50);
 
 

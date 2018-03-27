@@ -30,9 +30,12 @@ void MyGLWidget::initializeGL()
     //ajout
     ball1_ = new Ball();
     puck_ = new Puck();
+    brick_= new brick();
     wall1_ = new Wall();
     m_object.push_back(ball1_);
     m_object.push_back(puck_);
+    m_object.push_back(brick_);
+    for (int i=0;i<6;i++){}
     m_object.push_back(wall1_);
 
 }

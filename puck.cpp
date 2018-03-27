@@ -5,8 +5,8 @@ Puck::Puck():Object()
     quadrique= gluNewQuadric();
 
     //calcul des coordonnÃ©es + taille
-    x=10.;
-    y=-15.;
+    x=0;
+    y=-40.;
     z=0.;
     size=4.;
 
@@ -35,20 +35,46 @@ void Puck::Display()
     glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE,colorAmbiante);
 
 
-    //Dessine un rectangle
-    glBegin(GL_POLYGON) ;
-      glVertex2f(-5.0F,-0.5F) ;
-      glVertex2f(-5.0F,0.5F) ;
-      glVertex2f(5.0F,0.5F) ;
-      glVertex2f(5.0F,-0.5F) ;
-      glEnd() ;
+    //Dessine un parallelipipaide
+    glBegin(GL_QUADS);
+        glColor3ub(249,66,158);
+        glVertex3f(50.+x, 2., 0.); glVertex3f( -2.+x, 2., 0.);
+        glVertex3f( -2.+x, -2., 0.);
+        glVertex3f(50.+x, -2., 0.);
+
+         glVertex3f(50.+x, 2., -1.); glVertex3f(2.+x, -2., -1.);
+        glVertex3f( -2.+x, -2., -1.);
+        glVertex3f( -2.+x, 2., -1.);
+
+        glVertex3f(50.+x, -2., -1.); glVertex3f(50.+x, -2., 0.);
+        glVertex3f( -2.+x, -2., 0.);
+        glVertex3f( -2.+x, -2., -1.);
+
+         glVertex3f(50.+x, 2., -1.); glVertex3f( -2.+x, 2., -1.);
+        glVertex3f( -2.+x, 2., 0.);
+        glVertex3f(50.+x, 2., 0.);
+
+        glVertex3f( -2.+x, 2., -1.); glVertex3f( -2.+x, -2., -1.);
+        glVertex3f( -2.+x, -2., 0.);
+        glVertex3f( -2.+x, 2., 0.);
+
+        glVertex3f(50.+x, 2., -1.); glVertex3f(50.+x, 2., 0.);
+        glVertex3f(50.+x, -2., 0.);
+        glVertex3f(50.+x, -2., -1);
+        glEnd();
+
 
 
     glPopMatrix();
 
 
-
-
-
-
 }
+
+
+void Puck::setX(float X){
+    x=X;
+}
+float Puck::getX(){
+    return x;
+}
+float Puck::getY(){return y;}

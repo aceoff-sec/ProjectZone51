@@ -7,6 +7,7 @@
 #include <QVector2D>
 #include "ball.h"
 #include "puck.h"
+#include "brick.h"
 #include "wall.h"
 
 // Classe dediee a l'affichage d'une scene OpenGL
@@ -29,8 +30,8 @@ protected:
 
     // Fonction d'affichage
     void paintGL();
-
-
+    //pression touche
+    void keyPressEvent(QKeyEvent * event);
 
 private:
 
@@ -50,6 +51,7 @@ private:
     std::vector<Object *> m_object;
     Ball * ball1_;
     Puck * puck_;
+    brick * brick_;
     Wall * wall1_;
 };
 

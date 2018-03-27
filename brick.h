@@ -1,34 +1,31 @@
 #include <QGLWidget>
 #include <GL/glu.h>
 #include "object.h"
+#ifndef BRICK_H
+#define BRICK_H
 
-#ifndef Puck_H
-#define Puck_H
-class Puck : public Object
+
+class brick: public Object
 {
 public:
-    Puck();
-
+    brick();
     // Destructeur
-    virtual ~Puck();
+    virtual ~brick();
 
     // Methode d'affichage
     virtual void Display();
-    //setter & getter
+    //
+
     void setX(float X);
+    void setY(float Y);
     float getX();
     float getY();
-
-private:
-
-    float x;
+private :
+     float x;
     float y;
     float z;
     float size;
-    GLUquadric* quadrique;
-
-
+     GLUquadric* quadrique;
 };
 
-#endif // Puck_H
-
+#endif // BRICK_H
