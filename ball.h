@@ -17,13 +17,20 @@ public:
 
     // Methode d'affichage
     virtual void Display();
-
+    //Modification position
+    void setPos(int idx);
+    float getX();
+    float getY();
+    float getR();
 private:
 
     float x;
     float y;
     float z;
     float size;
+    int vie;
+    int dx;
+    int dy;
     GLUquadric* quadrique;
 
 

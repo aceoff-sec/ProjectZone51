@@ -8,7 +8,7 @@ brick::brick():Object()
     x=0.;
     y=0.;
     z=0.;
-    size=4.;
+    vie=1;
 
 
 }
@@ -34,7 +34,7 @@ void brick::Display()
 
     glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE,colorAmbiante);
 
-
+    if (vie==1){
 
     //Dessine un parallelipipaide
     glBegin(GL_QUADS);
@@ -64,7 +64,7 @@ void brick::Display()
         glVertex3f(17.-80., -3.+45., -1);
         glEnd();
 
-
+    }
 
     glPopMatrix();
 
@@ -82,3 +82,5 @@ float brick::getX(){
     return x;
 }
 float brick::getY(){return y;}
+
+int brick::viechy(){return vie;}

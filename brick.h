@@ -20,11 +20,13 @@ public:
     void setY(float Y);
     float getX();
     float getY();
+    int viechy();
 private :
      float x;
     float y;
     float z;
     float size;
+    int vie;
      GLUquadric* quadrique;
 };
 

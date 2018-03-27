@@ -5,6 +5,7 @@
 #include <QKeyEvent>
 #include <QColor>
 #include <QVector2D>
+#include <Qtimer>
 #include "ball.h"
 #include "puck.h"
 #include "brick.h"
@@ -32,6 +33,7 @@ protected:
     void paintGL();
     //pression touche
     void keyPressEvent(QKeyEvent * event);
+    int contact(Ball *boulet);
 
 private:
 
@@ -42,12 +44,12 @@ private:
     float v=0.5;
     float b=0.5;
     float alpha=0.5;
-    //Variable pour définir couleur de la primitive
-    /*int primitiveR_=0;
-    int primitiveV_=0;
-    int primitiveB_=255;
-    //Variable pour masquer ou pas la primitive
-    bool pushH_=true;*/
+    int value;
+
+    // Timer d'animation
+    float m_TimeElapsed { 0.0f };
+    QTimer m_AnimationTimer;
+    //bool pushH_=true;
     std::vector<Object *> m_object;
     std::vector<Ball *> m_ball;
     Ball * ball1_;
@@ -56,6 +58,7 @@ private:
     Puck * puck_;
     brick * brick_;
     Wall * wall1_;
+    int idx;
 };
 
 #endif // MYGLWIDGET_H

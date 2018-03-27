@@ -13,6 +13,14 @@ const float ORTHO_DIM         = 50.0f;
 // Constructeur
 MyGLWidget::MyGLWidget(QWidget * parent) : QGLWidget(parent)
 {
+    // Connexion du timer
+    connect(&m_AnimationTimer,  &QTimer::timeout, [&] {
+        m_TimeElapsed += 1.0f / 12.0f;
+        updateGL();
+    });
+
+    m_AnimationTimer.setInterval(50);
+    m_AnimationTimer.start();
     // Reglage de la taille/position
 
     move(QApplication::desktop()->screen()->rect().center() - rect().center());
@@ -80,6 +88,8 @@ void MyGLWidget::paintGL()
     // Reinitialisation des tampons
     glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
     for(Ball * boul : m_ball) {
+        idx=contact(boul);
+        boul->setPos(idx);
         boul->Display();
 
     }
@@ -130,5 +140,21 @@ void MyGLWidget::keyPressEvent(QKeyEvent * event)
 }
 
 
+int MyGLWidget::contact(Ball *boulet)
+{   value=32;
+    if (boulet->getX()+boulet->getR() > ORTHO_DIM*ASPECT_RATIO){
+        value=3;//droit
+    }
+    if (boulet->getX()-boulet->getR() < -ORTHO_DIM*ASPECT_RATIO){
+        value=1;//gauche
+    }
+    if (boulet->getY()-boulet->getR() < -ORTHO_DIM){
+        value=0;//bas
 
+    }
+    if (boulet->getY()+boulet->getR() > ORTHO_DIM){
+        value=2;//haut
 
+    }
+return value;
+}
