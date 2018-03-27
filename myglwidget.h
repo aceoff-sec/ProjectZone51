@@ -5,7 +5,8 @@
 #include <QKeyEvent>
 #include <QColor>
 #include <QVector2D>
-
+#include "ball.h"
+#include "puck.h"
 
 // Classe dediee a l'affichage d'une scene OpenGL
 class MyGLWidget : public QGLWidget
@@ -28,8 +29,7 @@ protected:
     // Fonction d'affichage
     void paintGL();
 
-    // Fonction de gestion d'interactions clavier
-    void keyPressEvent(QKeyEvent * event);
+
 
 private:
 
@@ -41,11 +41,14 @@ private:
     float b=0.5;
     float alpha=0.5;
     //Variable pour définir couleur de la primitive
-    int primitiveR_=0;
+    /*int primitiveR_=0;
     int primitiveV_=0;
     int primitiveB_=255;
     //Variable pour masquer ou pas la primitive
-    bool pushH_=true;
+    bool pushH_=true;*/
+    std::vector<Object *> m_object;
+    Ball * ball1_;
+    Puck * puck_;
 };
 
 #endif // MYGLWIDGET_H

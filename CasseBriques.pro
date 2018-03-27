@@ -18,5 +18,16 @@ else {
 TARGET 	  = CasseBriques
 
 # fichiers sources/headers
-SOURCES	+= main.cpp myglwidget.cpp
-HEADERS += myglwidget.h
+SOURCES	+= main.cpp myglwidget.cpp \
+    mainwindow.cpp \
+    ball.cpp \
+    puck.cpp \
+    object.cpp
+HEADERS += myglwidget.h \
+    mainwindow.h \
+    ball.h \
+    puck.h \
+    object.h
+
+FORMS += \
+    mainwindow.ui
