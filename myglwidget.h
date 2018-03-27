@@ -49,6 +49,7 @@ private:
     //Variable pour masquer ou pas la primitive
     bool pushH_=true;*/
     std::vector<Object *> m_object;
+    std::vector<brick *> m_brick;
     Ball * ball1_;
     Puck * puck_;
     brick * brick_;
