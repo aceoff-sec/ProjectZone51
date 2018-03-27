@@ -10,7 +10,7 @@
 class Ball : public Object
 {
 public:
-    Ball();
+    Ball(float Xb,float Yb,float Larg);
 
     // Destructeur
     virtual ~Ball();
