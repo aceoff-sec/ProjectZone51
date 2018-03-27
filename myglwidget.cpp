@@ -28,10 +28,14 @@ void MyGLWidget::initializeGL()
     // Activation du zbuffer
     glEnable(GL_DEPTH_TEST);
     //ajout
-    ball1_ = new Ball();
+    ball1_ = new Ball(0.,-0.75,1.5);
+    ball2_ = new Ball(3.5,-0.75,1.5);
+    ball3_ = new Ball(-3.5,-0.75,1.5);
     puck_ = new Puck();
     wall1_ = new Wall();
-    m_object.push_back(ball1_);
+    m_ball.push_back(ball1_);
+    m_ball.push_back(ball2_);
+    m_ball.push_back(ball3_);
     m_object.push_back(puck_);
 
 
@@ -75,7 +79,10 @@ void MyGLWidget::paintGL()
 
     // Reinitialisation des tampons
     glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+    for(Ball * boul : m_ball) {
+        boul->Display();
 
+    }
     for(Object * obj : m_object) {
         obj->Display();
 

@@ -1,14 +1,14 @@
 #include "Ball.h"
 
-Ball::Ball():Object()
+Ball::Ball(float Xb, float Yb, float Larg):Object()
 {
     quadrique= gluNewQuadric();
 
     //calcul des coordonnÃ©es + taille
-    x=0.;
-    y=-15.;
+    x=Xb;
+    y=Yb;
     z=0.;
-    size=3.5;
+    size=Larg;
 
 
 }
