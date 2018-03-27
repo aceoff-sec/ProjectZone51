@@ -85,6 +85,20 @@ void MyGLWidget::keyPressEvent(QKeyEvent * event)
             exit(0);
         }
 
+        // Mouvement du palet à gauche
+        case Qt::Key_Left:
+        {
+            puck_->moveLeft();
+            break;
+        }
+
+        // Mouvement du palet à droite
+        case Qt::Key_Right:
+        {
+            puck_->moveRight();
+            break;
+        }
+
         // Cas par defaut
         default:
         {

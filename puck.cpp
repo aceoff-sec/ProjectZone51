@@ -37,31 +37,31 @@ void Puck::Display()
 
     //Dessine un parallelipipaide
     glBegin(GL_QUADS);
-        glColor3ub(249,66,158);
-        glVertex3f(50.+x, 2., 0.); glVertex3f( -2.+x, 2., 0.);
-        glVertex3f( -2.+x, -2., 0.);
-        glVertex3f(50.+x, -2., 0.);
+    glColor3ub(249,66,158);
+    glVertex3f(50.+x, 2., 0.); glVertex3f( -2.+x, 2., 0.);
+    glVertex3f( -2.+x, -2., 0.);
+    glVertex3f(50.+x, -2., 0.);
 
-         glVertex3f(50.+x, 2., -1.); glVertex3f(2.+x, -2., -1.);
-        glVertex3f( -2.+x, -2., -1.);
-        glVertex3f( -2.+x, 2., -1.);
+     glVertex3f(50.+x, 2., -1.); glVertex3f(2.+x, -2., -1.);
+    glVertex3f( -2.+x, -2., -1.);
+    glVertex3f( -2.+x, 2., -1.);
 
-        glVertex3f(50.+x, -2., -1.); glVertex3f(50.+x, -2., 0.);
-        glVertex3f( -2.+x, -2., 0.);
-        glVertex3f( -2.+x, -2., -1.);
+    glVertex3f(50.+x, -2., -1.); glVertex3f(50.+x, -2., 0.);
+    glVertex3f( -2.+x, -2., 0.);
+    glVertex3f( -2.+x, -2., -1.);
 
-         glVertex3f(50.+x, 2., -1.); glVertex3f( -2.+x, 2., -1.);
-        glVertex3f( -2.+x, 2., 0.);
-        glVertex3f(50.+x, 2., 0.);
+     glVertex3f(50.+x, 2., -1.); glVertex3f( -2.+x, 2., -1.);
+    glVertex3f( -2.+x, 2., 0.);
+    glVertex3f(50.+x, 2., 0.);
 
-        glVertex3f( -2.+x, 2., -1.); glVertex3f( -2.+x, -2., -1.);
-        glVertex3f( -2.+x, -2., 0.);
-        glVertex3f( -2.+x, 2., 0.);
+    glVertex3f( -2.+x, 2., -1.); glVertex3f( -2.+x, -2., -1.);
+    glVertex3f( -2.+x, -2., 0.);
+    glVertex3f( -2.+x, 2., 0.);
 
-        glVertex3f(50.+x, 2., -1.); glVertex3f(50.+x, 2., 0.);
-        glVertex3f(50.+x, -2., 0.);
-        glVertex3f(50.+x, -2., -1);
-        glEnd();
+    glVertex3f(50.+x, 2., -1.); glVertex3f(50.+x, 2., 0.);
+    glVertex3f(50.+x, -2., 0.);
+    glVertex3f(50.+x, -2., -1);
+    glEnd();
 
 
 
@@ -71,10 +71,10 @@ void Puck::Display()
 }
 
 
-void Puck::setX(float X){
-    x=X;
+void Puck::moveLeft() {
+    x=x-5;
 }
-float Puck::getX(){
-    return x;
+
+void Puck::moveRight() {
+    x=x+5;
 }
-float Puck::getY(){return y;}

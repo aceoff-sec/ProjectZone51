@@ -15,9 +15,8 @@ public:
     // Methode d'affichage
     virtual void Display();
     //setter & getter
-    void setX(float X);
-    float getX();
-    float getY();
+    void moveLeft();
+    void moveRight();
 
 private:
 
