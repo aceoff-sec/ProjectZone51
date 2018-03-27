@@ -6,7 +6,7 @@ Puck::Puck():Object()
 
     //calcul des coordonnÃ©es + taille
     x=0;
-    y=-30.;
+    y=-45.;
     z=0.;
     size=4.;
 
@@ -72,9 +72,19 @@ void Puck::Display()
 
 
 void Puck::moveLeft() {
-    x=x-5;
+    if(x>=-83) {
+        x=x-5;
+    }
+    else {
+
+    }
 }
 
 void Puck::moveRight() {
-    x=x+5;
+    if(x<=53) {
+        x=x+5;
+    }
+    else {
+
+    }
 }
