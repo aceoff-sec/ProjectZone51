@@ -30,8 +30,10 @@ void MyGLWidget::initializeGL()
     //ajout
     ball1_ = new Ball();
     puck_ = new Puck();
+    wall1_ = new Wall();
     m_object.push_back(ball1_);
     m_object.push_back(puck_);
+    m_object.push_back(wall1_);
 
 }
 
@@ -63,12 +65,36 @@ void MyGLWidget::paintGL()
     glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 
     for(Object * obj : m_object) {
-            obj->Display();
+        obj->Display();
+
     }
 
 }
 
+// Fonction de gestion d'interactions clavier
+void MyGLWidget::keyPressEvent(QKeyEvent * event)
+{
+    switch(event->key())
+    {
+        // Sortie de l'application
+        case Qt::Key_Escape:
+        {
+            exit(0);
+        }
 
+        // Cas par defaut
+        default:
+        {
+            // Ignorer l'evenement
+            event->ignore();
+            return;
+        }
+    }
+
+    // Acceptation de l'evenement et mise a jour de la scene
+    event->accept();
+    updateGL();
+}
 
 
 

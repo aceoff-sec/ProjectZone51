@@ -7,6 +7,7 @@
 #include <QVector2D>
 #include "ball.h"
 #include "puck.h"
+#include "wall.h"
 
 // Classe dediee a l'affichage d'une scene OpenGL
 class MyGLWidget : public QGLWidget
@@ -49,6 +50,7 @@ private:
     std::vector<Object *> m_object;
     Ball * ball1_;
     Puck * puck_;
+    Wall * wall1_;
 };
 
 #endif // MYGLWIDGET_H

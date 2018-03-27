@@ -22,12 +22,14 @@ SOURCES	+= main.cpp myglwidget.cpp \
     mainwindow.cpp \
     ball.cpp \
     puck.cpp \
-    object.cpp
+    object.cpp \
+    wall.cpp
 HEADERS += myglwidget.h \
     mainwindow.h \
     ball.h \
     puck.h \
-    object.h
+    object.h \
+    wall.h
 
 FORMS += \
     mainwindow.ui
