@@ -37,3 +37,6 @@ HEADERS += myglwidget.h \
 
 FORMS += \
     mainwindow.ui
+
+RESOURCES += \
+    ressources.qrc

@@ -59,6 +59,9 @@ private:
     brick * brick_;
     Wall * wall1_;
     int idx;
+
+    QImage image_;
+    GLuint texture;
 };
 
 #endif // MYGLWIDGET_H

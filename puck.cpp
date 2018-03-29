@@ -37,31 +37,31 @@ void Puck::Display()
 
     //Dessine un parallelipipaide
     glBegin(GL_QUADS);
-        glColor3ub(249,66,158);
-        glVertex3f(30., 1., 0.); glVertex3f( -1., 1., 0.);
-        glVertex3f( -1., -1., 0.);
-        glVertex3f(30., -1., 0.);
+    glColor3ub(249,66,158);
+    glVertex3f(30., 1., 0.); glVertex3f( -1., 1., 0.);
+    glVertex3f( -1., -1., 0.);
+    glVertex3f(30., -1., 0.);
 
-         glVertex3f(30., 1., -1.); glVertex3f(1., -1., -1.);
-        glVertex3f( -1., -1., -1.);
-        glVertex3f( -1., 1., -1.);
+     glVertex3f(30., 1., -1.); glVertex3f(1., -1., -1.);
+    glVertex3f( -1., -1., -1.);
+    glVertex3f( -1., 1., -1.);
 
-        glVertex3f(30., -1., -1.); glVertex3f(30., -1., 0.);
-        glVertex3f( -1., -1., 0.);
-        glVertex3f( -1., -1., -1.);
+    glVertex3f(30., -1., -1.); glVertex3f(30., -1., 0.);
+    glVertex3f( -1., -1., 0.);
+    glVertex3f( -1., -1., -1.);
 
-         glVertex3f(30., 1., -1.); glVertex3f( -1., 1., -1.);
-        glVertex3f( -1., 1., 0.);
-        glVertex3f(30., 1., 0.);
+     glVertex3f(30., 1., -1.); glVertex3f( -1., 1., -1.);
+    glVertex3f( -1., 1., 0.);
+    glVertex3f(30., 1., 0.);
 
-        glVertex3f( -1., 1., -1.); glVertex3f( -1., -1., -1.);
-        glVertex3f( -1., -1., 0.);
-        glVertex3f( -1., 1., 0.);
+    glVertex3f( -1., 1., -1.); glVertex3f( -1., -1., -1.);
+    glVertex3f( -1., -1., 0.);
+    glVertex3f( -1., 1., 0.);
 
-        glVertex3f(30., 1., -1.); glVertex3f(30., 1., 0.);
-        glVertex3f(30., -1., 0.);
-        glVertex3f(30., -1., -1);
-        glEnd();
+    glVertex3f(30., 1., -1.); glVertex3f(30., 1., 0.);
+    glVertex3f(30., -1., 0.);
+    glVertex3f(30., -1., -1);
+    glEnd();
 
 
 

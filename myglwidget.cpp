@@ -59,6 +59,17 @@ void MyGLWidget::initializeGL()
 
     m_object.push_back(wall1_);
 
+    image_ = QGLWidget::convertToGLFormat(QImage(":/fond.jpg"));
+
+    // Create an openGL texture
+    glGenTextures(1, &texture);
+    glBindTexture(GL_TEXTURE_2D, texture);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image_.width(), image_.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, static_cast<GLubyte*>(image_.bits()));
+
+
+
 }
 
 
@@ -87,6 +98,20 @@ void MyGLWidget::paintGL()
 
     // Reinitialisation des tampons
     glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+
+    /*glEnable(GL_TEXTURE_2D);
+    glDisable(GL_DEPTH_TEST);
+    glBindTexture(GL_TEXTURE_2D, texture);
+
+    glBegin(GL_QUADS);
+        glTexCoord2f(0.0f, 0.0f); glVertex2f( -100.0f, -50.0f);
+        glTexCoord2f(0.0f, 1.0f); glVertex2f( -100.0f, 50.0f);
+        glTexCoord2f(1.0f, 1.0f); glVertex2f( 100.0f, 50.0f);
+        glTexCoord2f(1.0f, 0.0f); glVertex2f( 100.0f, -50.0f);
+    glEnd();
+
+    glEnable(GL_DEPTH_TEST); */
+
     for(Ball * boul : m_ball) {
         idx=contact(boul);
         boul->setPos(idx);
