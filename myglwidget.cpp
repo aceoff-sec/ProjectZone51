@@ -19,7 +19,7 @@ MyGLWidget::MyGLWidget(QWidget * parent) : QGLWidget(parent)
         updateGL();
     });
 
-    m_AnimationTimer.setInterval(1000);
+    m_AnimationTimer.setInterval(50);
     m_AnimationTimer.start();
     // Reglage de la taille/position
 
@@ -125,6 +125,53 @@ void MyGLWidget::paintGL()
 
 
 }
+void MyGLWidget::contact(Ball *boulet,Object *obj)
+{
+    float dy=boulet->getdy();
+    float dx=boulet->getdx();
+    if (boulet->getX()+boulet->getR() > ORTHO_DIM*ASPECT_RATIO){
+        boulet->setdx(-dx);//droit
+
+    }
+    if (boulet->getX()-boulet->getR() < -ORTHO_DIM*ASPECT_RATIO){
+        boulet->setdx(-dx);
+        //gauche
+    }
+//
+        if(((boulet->getY()-boulet->getR())<=(obj->getInfo("y")+obj->getInfo("h"))) && ((boulet->getY()+boulet->getR())>=obj->getInfo("y"))) // Si la balle est au niveau de la barre
+          {
+            // Teste au niveau de l"axe des abscisses
+            if(((boulet->getX()+boulet->getR())>=(obj->getInfo("x"))) && ((boulet->getX()-boulet->getR())<=(obj->getInfo("x")+obj->getInfo("w"))))
+            {
+              // Fait le rebond
+              dy=-dy;
+
+              // Oriente différemment la balle selon le contact avec la barre
+              dx=(boulet->getX()-(obj->getInfo("x")+obj->getInfo("w")/2))/10;
+
+              // Met une valeur max et une min
+              if(dx>0.025)  dx=0.025;
+              if(dx<-0.025) dx=-0.025;
+               obj->LoseLife();
+              boulet->setdx(dx);
+              boulet->setdy(dy);
+
+            }
+
+          }
+
+
+
+
+//
+    if (boulet->getY()+boulet->getR() > ORTHO_DIM){
+        boulet->setdy(-dy);//haut
+
+
+    }
+
+boulet->setPos();
+}
 
 // Fonction de gestion d"interactions clavier
 void MyGLWidget::keyPressEvent(QKeyEvent * event)
@@ -162,53 +209,7 @@ void MyGLWidget::keyPressEvent(QKeyEvent * event)
 
     // Acceptation de l"evenement et mise a jour de la scene
     event->accept();
-    updateGL();
-}
-
-
-void MyGLWidget::contact(Ball *boulet,Object *obj)
-{
-    float dy=boulet->getdy();
-    float dx=boulet->getdx();
-    if (boulet->getX()+boulet->getR() > ORTHO_DIM*ASPECT_RATIO){
-        boulet->setdx(-dx);//droit
-
-    }
-    if (boulet->getX()-boulet->getR() < -ORTHO_DIM*ASPECT_RATIO){
-        boulet->setdx(-dx);
-        //gauche
-    }
-//
-        if(((boulet->getY()-boulet->getR())<=(obj->getInfo("y")+obj->getInfo("h"))) && ((boulet->getY()+boulet->getR())>=obj->getInfo("y"))) // Si la balle est au niveau de la barre
-          {
-            // Teste au niveau de l"axe des abscisses
-            if(((boulet->getX()+boulet->getR())>=(obj->getInfo("x"))) && ((boulet->getX()-boulet->getR())<=(obj->getInfo("x")+obj->getInfo("w"))))
-            {
-              // Fait le rebond
-              dy=-dy;
-
-              // Oriente différemment la balle selon le contact avec la barre
-              dx=(boulet->getX()-(obj->getInfo("x")+obj->getInfo("w")/2))/10;
-
-              // Met une valeur max et une min
-              if(dx>0.025)  dx=0.025;
-              if(dx<-0.025) dx=-0.025;
-               obj->LoseLife();
-              boulet->setdx(dx);
-              boulet->setdy(dy);
-
-            }
-          }
-
-
-
-
-//
-    if (boulet->getY()+boulet->getR() > ORTHO_DIM){
-        boulet->setdy(-dy);//haut
-
-
-    }
-boulet->setPos();
 
 }
+
+

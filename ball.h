@@ -35,8 +35,8 @@ private:
     float z;
     float size;
     int vie;
-    int dx;
-    int dy;
+    float dx;
+    float dy;
     GLUquadric* quadrique;
 
 

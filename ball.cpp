@@ -10,8 +10,8 @@ Ball::Ball(float Xb, float Yb, float Larg):Object()
     z=0.;
     size=Larg;
     vie=1;
-    dx=-1;
-    dy=1;
+    dx=-0.01;
+    dy=+0.01;
 }
 
 Ball::~Ball()
