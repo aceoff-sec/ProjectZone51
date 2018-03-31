@@ -11,7 +11,7 @@ Ball::Ball(float Xb, float Yb, float Larg):Object()
     size=Larg;
     vie=1;
     dx=-1;
-    dy=-1;
+    dy=1;
 }
 
 Ball::~Ball()
@@ -20,10 +20,12 @@ Ball::~Ball()
     gluDeleteQuadric(quadrique);
 }
 
-
+void Ball::LoseLife(){
+    vie=0;
+}
 void Ball::Display()
 {
-
+    if (vie==1){
     glPushMatrix();
 
 
@@ -43,57 +45,23 @@ void Ball::Display()
 
     glPopMatrix();
     }
-
+}
 
 }
 
-void Ball::setPos(/*x_, fly_,*/ int idx){
-    switch(idx)
-    {
-        // Sortie de l'application
-        case 0://palet
-        {
-        dy=-dy;
-        x=x+dx*2;
-        y=y+dy*2;
-                    break;
-        }
-        case 1 ://mur gauche
-        {
-       dx=-dx;
-       x=x+dx*2;
-       y=y+dy*2;
-            break;
-        }
-    case 2://brique
-        {
-        dy=-dy;
-        x=x+dx*2;
-        y=y+dy*2;
-            break;
-
-        }
-     case 3 : //plafond
-    {
-    dx=-dx;
-    x=x+dx*2;
-    y=y+dy*2;
-    break;}
-
-        // Cas par defaut
-        default:
-        {
-        x=x+dx*2;
-        y=y+dy*2;
-            return;
-        }
-
+void Ball::setPos(){
+    x=x+dx;
+    y=y+dy;
 }
 
+//int Ball::getLife(){return vie;}
 
 
-}
 
 float Ball::getX(){return x;}
 float Ball::getY(){return y;}
 float Ball::getR(){return size;}
+float Ball::getdx(){return dx;}
+float Ball::getdy(){return dy;}
+void Ball::setdx(float x_){dx=x_;}
+void Ball::setdy(float y_){dy=y_;}

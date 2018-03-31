@@ -1,6 +1,7 @@
 #include <QGLWidget>
 #include <GL/glu.h>
 #include "object.h"
+#include "qstring.h"
 #ifndef BRICK_H
 #define BRICK_H
 
@@ -15,7 +16,8 @@ public:
     // Methode d'affichage
     virtual void Display();
     //
-
+    virtual void LoseLife();
+    virtual float getInfo(QString value);
     void setX(float X);
     void setY(float Y);
     float getX();
@@ -28,6 +30,11 @@ private :
     float size;
     int vie;
      GLUquadric* quadrique;
+     float infox;
+      float infoy;
+     float infow;
+      float infoh;
+
 };
 
 #endif // BRICK_H

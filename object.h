@@ -1,3 +1,4 @@
+#include "qstring.h"
 #ifndef OBJECT_H
 #define OBJECT_H
 
@@ -8,6 +9,13 @@ public:
     Object();
     virtual ~Object();
     virtual void Display();
+    virtual void LoseLife();
+    virtual float getInfo(QString value);
+    virtual int getLife();
+protected :
+
+
+
 };
 
 #endif // OBJECT_H

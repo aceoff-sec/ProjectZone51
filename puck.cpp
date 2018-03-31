@@ -9,7 +9,10 @@ Puck::Puck():Object()
     y=-45.;
     z=0.;
     size=4.;
-
+    infox=x-1.;
+    infoy=y-1.;
+    infow=31.;
+    infoh=2.;
 
 }
 
@@ -19,7 +22,12 @@ Puck::~Puck()
     gluDeleteQuadric(quadrique);
 }
 
-
+float Puck::getInfo(QString value){
+    if (value=="posx"){return infox;};
+    if (value=="posy"){return infoy;};
+    if (value=="posw"){return infow;};
+    if (value=="posh"){return infoh;};
+}
 void Puck::Display()
 {
 

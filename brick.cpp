@@ -9,6 +9,10 @@ brick::brick():Object()
     y=0.;
     z=0.;
     vie=1;
+    infox=x-83.;
+    infoy=y+42.;
+            infow=20.;
+            infoh=6.;
 
 
 }
@@ -18,8 +22,16 @@ brick::~brick()
     // Destruction de la quadrique
     gluDeleteQuadric(quadrique);
 }
-
-
+void brick::LoseLife(){
+    vie-=1;
+}
+float brick::getInfo(QString value){
+    if (value=='x'){return infox;}
+    if (value=='y'){return infoy;}
+    if (value=='w'){return infow;}
+    if (value=='h'){return infoh;}
+}
+//int brick::getLife(){return vie;}
 void brick::Display()
 {
 

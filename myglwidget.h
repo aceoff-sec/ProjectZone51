@@ -33,7 +33,8 @@ protected:
     void paintGL();
     //pression touche
     void keyPressEvent(QKeyEvent * event);
-    int contact(Ball *boulet);
+    void contact(Ball *boulet, Object *obj);
+
 
 private:
 

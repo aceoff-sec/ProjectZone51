@@ -17,11 +17,17 @@ public:
 
     // Methode d'affichage
     virtual void Display();
+    virtual void LoseLife();
     //Modification position
-    void setPos(int idx);
+    void setPos();
     float getX();
     float getY();
     float getR();
+    float getdx();
+    float getdy();
+    void setdx(float x_);
+    void setdy(float y_);
+
 private:
 
     float x;

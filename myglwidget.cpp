@@ -19,7 +19,7 @@ MyGLWidget::MyGLWidget(QWidget * parent) : QGLWidget(parent)
         updateGL();
     });
 
-    m_AnimationTimer.setInterval(50);
+    m_AnimationTimer.setInterval(1000);
     m_AnimationTimer.start();
     // Reglage de la taille/position
 
@@ -27,7 +27,7 @@ MyGLWidget::MyGLWidget(QWidget * parent) : QGLWidget(parent)
 }
 
 
-// Fonction d'initialisation
+// Fonction d"initialisation
 void MyGLWidget::initializeGL()
 {
     // Reglage de la couleur de fond
@@ -76,7 +76,7 @@ void MyGLWidget::initializeGL()
 // Fonction de redimensionnement
 void MyGLWidget::resizeGL(int width, int height)
 {
-    // Definition du viewport (zone d'affichage)
+    // Definition du viewport (zone d"affichage)
     glViewport(0,0,width,height);
 
     // Definition de la matrice de projection
@@ -90,7 +90,7 @@ void MyGLWidget::resizeGL(int width, int height)
 }
 
 
-// Fonction d'affichage
+// Fonction d"affichage
 void MyGLWidget::paintGL()
 {
     glMatrixMode(GL_MODELVIEW);
@@ -113,24 +113,25 @@ void MyGLWidget::paintGL()
     glEnable(GL_DEPTH_TEST); */
 
     for(Ball * boul : m_ball) {
-        idx=contact(boul);
-        boul->setPos(idx);
-        boul->Display();
+        for(Object * obj : m_object) {
+        contact(boul,obj);
 
+        }
+     boul->Display();
     }
     for(Object * obj : m_object) {
-        obj->Display();
+    obj->Display();}
 
-    }
+
 
 }
 
-// Fonction de gestion d'interactions clavier
+// Fonction de gestion d"interactions clavier
 void MyGLWidget::keyPressEvent(QKeyEvent * event)
 {
     switch(event->key())
     {
-        // Sortie de l'application
+        // Sortie de l"application
         case Qt::Key_Escape:
         {
             exit(0);
@@ -153,33 +154,61 @@ void MyGLWidget::keyPressEvent(QKeyEvent * event)
         // Cas par defaut
         default:
         {
-            // Ignorer l'evenement
+            // Ignorer l"evenement
             event->ignore();
             return;
         }
     }
 
-    // Acceptation de l'evenement et mise a jour de la scene
+    // Acceptation de l"evenement et mise a jour de la scene
     event->accept();
     updateGL();
 }
 
 
-int MyGLWidget::contact(Ball *boulet)
-{   value=32;
+void MyGLWidget::contact(Ball *boulet,Object *obj)
+{
+    float dy=boulet->getdy();
+    float dx=boulet->getdx();
     if (boulet->getX()+boulet->getR() > ORTHO_DIM*ASPECT_RATIO){
-        value=3;//droit
+        boulet->setdx(-dx);//droit
+
     }
     if (boulet->getX()-boulet->getR() < -ORTHO_DIM*ASPECT_RATIO){
-        value=1;//gauche
+        boulet->setdx(-dx);
+        //gauche
     }
-    if (boulet->getY()-boulet->getR() < -ORTHO_DIM){
-        value=0;//bas
+//
+        if(((boulet->getY()-boulet->getR())<=(obj->getInfo("y")+obj->getInfo("h"))) && ((boulet->getY()+boulet->getR())>=obj->getInfo("y"))) // Si la balle est au niveau de la barre
+          {
+            // Teste au niveau de l"axe des abscisses
+            if(((boulet->getX()+boulet->getR())>=(obj->getInfo("x"))) && ((boulet->getX()-boulet->getR())<=(obj->getInfo("x")+obj->getInfo("w"))))
+            {
+              // Fait le rebond
+              dy=-dy;
 
-    }
+              // Oriente différemment la balle selon le contact avec la barre
+              dx=(boulet->getX()-(obj->getInfo("x")+obj->getInfo("w")/2))/10;
+
+              // Met une valeur max et une min
+              if(dx>0.025)  dx=0.025;
+              if(dx<-0.025) dx=-0.025;
+               obj->LoseLife();
+              boulet->setdx(dx);
+              boulet->setdy(dy);
+
+            }
+          }
+
+
+
+
+//
     if (boulet->getY()+boulet->getR() > ORTHO_DIM){
-        value=2;//haut
+        boulet->setdy(-dy);//haut
+
 
     }
-return value;
+boulet->setPos();
+
 }
