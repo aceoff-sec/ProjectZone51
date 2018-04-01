@@ -31,7 +31,7 @@ MyGLWidget::MyGLWidget(QWidget * parent) : QGLWidget(parent)
 void MyGLWidget::initializeGL()
 {
     // Reglage de la couleur de fond
-    glClearColor(r,v,b,alpha);
+    //glClearColor(r,v,b,alpha);
 
     // Activation du zbuffer
     glEnable(GL_DEPTH_TEST);
@@ -47,11 +47,11 @@ void MyGLWidget::initializeGL()
     m_object.push_back(puck_);
 
 
-    for (int i=0;i<7;i++){
+    for (int i=0;i<10;i++){
         for(int j=0;j<5;j++){
         brick_= new brick();
         brick_->setY(-j*10.);
-            brick_->setX(i*25.);
+            brick_->setX(i*17);
 
            m_object.push_back(brick_);
         }
@@ -99,9 +99,10 @@ void MyGLWidget::paintGL()
     // Reinitialisation des tampons
     glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 
-    /*glEnable(GL_TEXTURE_2D);
+    glEnable(GL_TEXTURE_2D);
     glDisable(GL_DEPTH_TEST);
-    glBindTexture(GL_TEXTURE_2D, texture);
+    glColor3f(1.0f,1.0f,1.0f);
+
 
     glBegin(GL_QUADS);
         glTexCoord2f(0.0f, 0.0f); glVertex2f( -100.0f, -50.0f);
@@ -110,7 +111,9 @@ void MyGLWidget::paintGL()
         glTexCoord2f(1.0f, 0.0f); glVertex2f( 100.0f, -50.0f);
     glEnd();
 
-    glEnable(GL_DEPTH_TEST); */
+    glDisable(GL_TEXTURE_2D);
+    glEnable(GL_DEPTH_TEST);
+
 
     for(Ball * boul : m_ball) {
         for(Object * obj : m_object) {
@@ -121,6 +124,8 @@ void MyGLWidget::paintGL()
     }
     for(Object * obj : m_object) {
     obj->Display();}
+
+    displayTime();
 
 
 
@@ -213,3 +218,9 @@ void MyGLWidget::keyPressEvent(QKeyEvent * event)
 }
 
 
+void MyGLWidget::displayTime() {
+    QString time = QString::number(m_TimeElapsed);
+    QFont maFonte("Arial", 20, QFont::DemiBold);
+    glColor3f(0,0,0);
+    renderText(-5,5,0,"Time :" + time,maFonte);
+}

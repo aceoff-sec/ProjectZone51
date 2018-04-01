@@ -34,6 +34,7 @@ protected:
     //pression touche
     void keyPressEvent(QKeyEvent * event);
     void contact(Ball *boulet, Object *obj);
+    void displayTime();
 
 
 private:

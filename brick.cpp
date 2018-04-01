@@ -5,14 +5,14 @@ brick::brick():Object()
     quadrique= gluNewQuadric();
 
     //calcul des coordonnÃ©es + taille
-    x=0.;
-    y=0.;
-    z=0.;
+    x=0;
+    y=0;
+    z=0;
     vie=1;
-    infox=x-83.;
-    infoy=y+42.;
-            infow=20.;
-            infoh=6.;
+    infox=x-83;
+    infoy=y+42;
+            infow=20;
+            infoh=6;
 
 
 }
@@ -42,7 +42,7 @@ void brick::Display()
     glTranslatef(x,y,z);
     // Affichage de la quadrique
 
-    GLfloat colorAmbiante[]={1.,0.,1.,1.};
+    GLfloat colorAmbiante[]={1,0,1,1};
 
     glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE,colorAmbiante);
 
@@ -51,29 +51,29 @@ void brick::Display()
     //Dessine un parallelipipaide
     glBegin(GL_QUADS);
         glColor3ub(158, 253, 56);
-        glVertex3f(17.-80., 3.+45., 0.); glVertex3f( -3.-80., 3.+45., 0.);
-        glVertex3f( -3.-80., -3.+45., 0.);
-        glVertex3f(17.-80., -3.+45., 0.);
+        glVertex3f(-70, 48, 0); glVertex3f( -83, 48, 0);
+        glVertex3f( -83, 42, 0);
+        glVertex3f(-70, 42, 0);
 
-         glVertex3f(17.-80., 3.+45., -1.); glVertex3f(3.-80., -3.+45., -1.);
-        glVertex3f( -3.-80., -3.+45., -1.);
-        glVertex3f( -3.-80., 3.+45., -1.);
+         glVertex3f(-70, 48, -1); glVertex3f(-83, 48, -1);
+        glVertex3f( -83, 42, -1);
+        glVertex3f( -70, 42, -1);
 
-        glVertex3f(17.-80., -3.+45., -1.); glVertex3f(17.-80., -3.+45., 0.);
-        glVertex3f( -3.-80., -3.+45., 0.);
-        glVertex3f( -3.-80., -3.+45., -1.);
+        glVertex3f(-70, 42, -1); glVertex3f(-70, 42, 0);
+        glVertex3f( -83, 42, 0);
+        glVertex3f( -83, 42, -1);
 
-         glVertex3f(17.-80., 3.+45., -1.); glVertex3f( -3.-80., 3.+45., -1.);
-        glVertex3f( -3.-80., 3.+45., 0.);
-        glVertex3f(17.-80., 3.+45., 0.);
+         glVertex3f(-70, 48, -1); glVertex3f( -83, 48, -1);
+        glVertex3f( -83, 48, 0);
+        glVertex3f(-70, 48, 0);
 
-        glVertex3f( -3.-80., 3.+45., -1.); glVertex3f( -3.-80., -3.+45., -1.);
-        glVertex3f( -3.-80., -3.+45., 0.);
-        glVertex3f( -3.-80., 3.+45., 0.);
+        glVertex3f( -83, 48, -1); glVertex3f( -83, 42, -1);
+        glVertex3f( -83, 42, 0);
+        glVertex3f( -83, 48, 0);
 
-        glVertex3f(17.-80., 3.+45., -1.); glVertex3f(17.-80., 3.+45., 0.);
-        glVertex3f(17.-80., -3.+45., 0.);
-        glVertex3f(17.-80., -3.+45., -1);
+        glVertex3f(-70, 48, -1); glVertex3f(-70, 48, 0);
+        glVertex3f(-70, 42, 0);
+        glVertex3f(-70, 42, -1);
         glEnd();
 
     }
