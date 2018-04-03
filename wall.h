@@ -7,13 +7,15 @@
 class Wall : public Object
 {
 public:
-    Wall();
+    Wall(QString name, int id);
 
     // Destructeur
     virtual ~Wall();
 
     // Methode d'affichage
     virtual void Display();
+    virtual QString getName();
+    virtual int getId();
 
 private:
     float xHorizontal;
@@ -24,6 +26,8 @@ private:
     float z;
     float size;
     GLUquadric* quadrique;
+    int id_;
+    QString name_;
 };
 
 #endif // WALL_H

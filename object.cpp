@@ -1,6 +1,11 @@
 #include "object.h"
 #include "qstring.h"
 
+Object::Object(QString name, int id)
+{
+
+}
+
 Object::Object()
 {
 
@@ -17,3 +22,6 @@ void Object::Display() {
 void Object::LoseLife(){}
 int Object::getLife(){}
 float Object::getInfo(QString value){}
+QString Object::getName() {}
+int Object::getId() {}
+

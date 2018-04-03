@@ -1,6 +1,6 @@
 #include "wall.h"
 
-Wall::Wall():Object()
+Wall::Wall(QString name, int id):Object()
 {   quadrique= gluNewQuadric();
 
     //calcul des coordonnÃ©es + taille
@@ -10,6 +10,8 @@ Wall::Wall():Object()
     yDown=-50;
     yUp=50;
     z=0;
+    name_ = name;
+    id_ = id;
 
 }
 
@@ -91,3 +93,7 @@ void Wall::Display()
 
     glPopMatrix();
 }
+
+QString Wall::getName(){return name_;}
+
+int Wall::getId() {return id_;}

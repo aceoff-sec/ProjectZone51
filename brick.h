@@ -9,7 +9,7 @@
 class brick: public Object
 {
 public:
-    brick();
+    brick(QString name, int id);
     // Destructeur
     virtual ~brick();
 
@@ -18,6 +18,8 @@ public:
     //
     virtual void LoseLife();
     virtual float getInfo(QString value);
+    virtual QString getName();
+    virtual int getId();
     void setX(float X);
     void setY(float Y);
     float getX();
@@ -34,6 +36,8 @@ private :
       float infoy;
      float infow;
       float infoh;
+     int id_;
+     QString name_;
 
 };
 

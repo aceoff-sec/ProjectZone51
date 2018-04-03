@@ -1,9 +1,10 @@
 #include "brick.h"
 
-brick::brick():Object()
+brick::brick(QString name, int id):Object()
 {
     quadrique= gluNewQuadric();
-
+    name_= name;
+    id_ = id;
     //calcul des coordonnÃ©es + taille
     x=0;
     y=0;
@@ -11,8 +12,8 @@ brick::brick():Object()
     vie=1;
     infox=x-83;
     infoy=y+42;
-            infow=20;
-            infoh=6;
+    infow=13;
+    infoh=6;
 
 
 }
@@ -96,3 +97,7 @@ float brick::getX(){
 float brick::getY(){return y;}
 
 int brick::viechy(){return vie;}
+
+QString brick::getName(){return name_;}
+
+int brick::getId() {return id_;}

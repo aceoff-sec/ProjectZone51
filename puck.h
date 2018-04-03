@@ -8,7 +8,7 @@
 class Puck : public Object
 {
 public:
-    Puck();
+    Puck(QString name, int id);
 
     // Destructeur
     virtual ~Puck();
@@ -16,9 +16,12 @@ public:
     // Methode d'affichage
     virtual void Display();
     virtual float getInfo(QString value);
+    virtual QString getName();
+    virtual int getId();
     //setter & getter
     void moveLeft();
     void moveRight();
+
 
 protected:
 
@@ -31,6 +34,8 @@ protected:
      float infoy;
     float infow;
      float infoh;
+    QString name_;
+    int id_;
 
 
 };

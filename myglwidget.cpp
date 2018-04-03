@@ -1,7 +1,7 @@
 #include "myglwidget.h"
 #include <QApplication>
 #include <QDesktopWidget>
-
+#include <QDebug>
 
 // Declarations des constantes
 const unsigned int WIN_WIDTH  = 900;
@@ -39,8 +39,8 @@ void MyGLWidget::initializeGL()
     ball1_ = new Ball(0.,-0.75,1.5);
     ball2_ = new Ball(3.5,-0.75,1.5);
     ball3_ = new Ball(-3.5,-0.75,1.5);
-    puck_ = new Puck();
-    wall1_ = new Wall();
+    puck_ = new Puck("Puck",1);
+    wall1_ = new Wall("Wall",1);
     m_ball.push_back(ball1_);
     m_ball.push_back(ball2_);
     m_ball.push_back(ball3_);
@@ -49,7 +49,7 @@ void MyGLWidget::initializeGL()
 
     for (int i=0;i<10;i++){
         for(int j=0;j<5;j++){
-        brick_= new brick();
+        brick_= new brick("Brick",i+j);
         brick_->setY(-j*10.);
             brick_->setX(i*17);
 
@@ -134,19 +134,34 @@ void MyGLWidget::contact(Ball *boulet,Object *obj)
 {
     float dy=boulet->getdy();
     float dx=boulet->getdx();
-    if (boulet->getX()+boulet->getR() > ORTHO_DIM*ASPECT_RATIO){
-        boulet->setdx(-dx);//droit
 
+    if(obj->getName()=="Wall") {
+        if (boulet->getX()+boulet->getR() > ORTHO_DIM*ASPECT_RATIO){
+            boulet->setdx(-dx);//droit
+
+        }
+        if (boulet->getX()-boulet->getR() < -ORTHO_DIM*ASPECT_RATIO){
+            boulet->setdx(-dx);
+            //gauche
+        }
+
+        if (boulet->getY()+boulet->getR() > ORTHO_DIM){
+            boulet->setdy(-dy);//haut
+        }
+
+        if(boulet->getY()+boulet->getR() < -ORTHO_DIM) {
+            boulet->LoseLife();
+        }
     }
-    if (boulet->getX()-boulet->getR() < -ORTHO_DIM*ASPECT_RATIO){
-        boulet->setdx(-dx);
-        //gauche
-    }
+
 //
-        if(((boulet->getY()-boulet->getR())<=(obj->getInfo("y")+obj->getInfo("h"))) && ((boulet->getY()+boulet->getR())>=obj->getInfo("y"))) // Si la balle est au niveau de la barre
+    if(obj->getName()=="Brick") { //Je n'ai pas compris ton code Schwarzy
+
+        if(((boulet->getY()-boulet->getR())<=(obj->getInfo("y")+obj->getInfo("h"))) && ((boulet->getY()+boulet->getR())<=obj->getInfo("y")+obj->getInfo("h"))) // Si la balle est au niveau de la barre
           {
+            qDebug()<<"ok";
             // Teste au niveau de l"axe des abscisses
-            if(((boulet->getX()+boulet->getR())>=(obj->getInfo("x"))) && ((boulet->getX()-boulet->getR())<=(obj->getInfo("x")+obj->getInfo("w"))))
+            if(((boulet->getX()-boulet->getR())<=(obj->getInfo("x")+obj->getInfo("w"))) && ((boulet->getX()+boulet->getR())<=(obj->getInfo("x")+obj->getInfo("w"))))
             {
               // Fait le rebond
               dy=-dy;
@@ -157,25 +172,23 @@ void MyGLWidget::contact(Ball *boulet,Object *obj)
               // Met une valeur max et une min
               if(dx>0.025)  dx=0.025;
               if(dx<-0.025) dx=-0.025;
-               obj->LoseLife();
+              obj->LoseLife();
+
               boulet->setdx(dx);
               boulet->setdy(dy);
 
             }
 
           }
-
-
-
-
-//
-    if (boulet->getY()+boulet->getR() > ORTHO_DIM){
-        boulet->setdy(-dy);//haut
-
-
     }
 
-boulet->setPos();
+    if(obj->getName()=="Puck") { // Test, ne marche pas encore
+        if(boulet->getX()+boulet->getR() <= obj->getInfo("posy") ) {
+            dy=-dy;
+        }
+    }
+
+    boulet->setPos();
 }
 
 // Fonction de gestion d"interactions clavier

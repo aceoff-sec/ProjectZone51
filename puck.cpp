@@ -1,6 +1,6 @@
 #include "Puck.h"
 
-Puck::Puck():Object()
+Puck::Puck(QString name, int id):Object()
 {
     quadrique= gluNewQuadric();
 
@@ -13,6 +13,8 @@ Puck::Puck():Object()
     infoy=y-1.;
     infow=31.;
     infoh=2.;
+    name_ = name;
+    id_ = id;
 
 }
 
@@ -96,3 +98,8 @@ void Puck::moveRight() {
 
     }
 }
+
+QString Puck::getName(){return name_;}
+
+int Puck::getId() {return id_;}
+
