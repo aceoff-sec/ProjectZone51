@@ -19,7 +19,7 @@ MyGLWidget::MyGLWidget(QWidget * parent) : QGLWidget(parent)
         updateGL();
     });
 
-    m_AnimationTimer.setInterval(50);
+    m_AnimationTimer.setInterval(20);
     m_AnimationTimer.start();
     // Reglage de la taille/position
 
@@ -155,11 +155,11 @@ void MyGLWidget::contact(Ball *boulet,Object *obj)
     }
 
 //
-    if(obj->getName()=="Brick") { //Je n'ai pas compris ton code Schwarzy
+    /*if(obj->getName()=="Brick") { //Je n'ai pas compris ton code Schwarzy
 
         if(((boulet->getY()-boulet->getR())<=(obj->getInfo("y")+obj->getInfo("h"))) && ((boulet->getY()+boulet->getR())<=obj->getInfo("y")+obj->getInfo("h"))) // Si la balle est au niveau de la barre
           {
-            qDebug()<<"ok";
+
             // Teste au niveau de l"axe des abscisses
             if(((boulet->getX()-boulet->getR())<=(obj->getInfo("x")+obj->getInfo("w"))) && ((boulet->getX()+boulet->getR())<=(obj->getInfo("x")+obj->getInfo("w"))))
             {
@@ -180,11 +180,11 @@ void MyGLWidget::contact(Ball *boulet,Object *obj)
             }
 
           }
-    }
+    } */
 
-    if(obj->getName()=="Puck") { // Test, ne marche pas encore
-        if(boulet->getX()+boulet->getR() <= obj->getInfo("posy") ) {
-            dy=-dy;
+    if(obj->getName()=="Puck") {
+        if(boulet->getY()-boulet->getR() <= obj->getInfo("posy")+obj->getInfo("posh")) {
+            boulet->setdy(-dy);
         }
     }
 
