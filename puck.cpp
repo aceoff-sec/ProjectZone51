@@ -9,9 +9,9 @@ Puck::Puck(QString name, int id):Object()
     y=-45.;
     z=0.;
     size=4.;
-    infox=x-1.;
-    infoy=y-1.;
-    infow=31.;
+    infox=x;
+    infoy=y;
+    infow=10.5;
     infoh=2.;
     name_ = name;
     id_ = id;
@@ -84,6 +84,7 @@ void Puck::Display()
 void Puck::moveLeft() {
     if(x>=-83) {
         x=x-5;
+        infox=x;
     }
     else {
 
@@ -93,6 +94,7 @@ void Puck::moveLeft() {
 void Puck::moveRight() {
     if(x<=53) {
         x=x+5;
+        infox=x;
     }
     else {
 

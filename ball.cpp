@@ -1,6 +1,6 @@
 #include "Ball.h"
 
-Ball::Ball(float Xb, float Yb, float Larg):Object()
+Ball::Ball(float Xb, float Yb, float Larg, int id):Object()
 {
     quadrique= gluNewQuadric();
 
@@ -12,6 +12,7 @@ Ball::Ball(float Xb, float Yb, float Larg):Object()
     vie=1;
     dx=-0.01;
     dy=+0.01;
+    id_=id;
 }
 
 Ball::~Ball()

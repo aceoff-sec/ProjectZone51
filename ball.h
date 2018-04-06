@@ -10,7 +10,7 @@
 class Ball : public Object
 {
 public:
-    Ball(float Xb,float Yb,float Larg);
+    Ball(float Xb,float Yb,float Larg, int id);
 
     // Destructeur
     virtual ~Ball();
@@ -27,6 +27,7 @@ public:
     float getdy();
     void setdx(float x_);
     void setdy(float y_);
+    virtual int getId() {return id_;}
 
 private:
 
@@ -38,6 +39,7 @@ private:
     float dx;
     float dy;
     GLUquadric* quadrique;
+    int id_;
 
 
 };

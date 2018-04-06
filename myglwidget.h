@@ -3,6 +3,7 @@
 
 #include <QGLWidget>
 #include <QKeyEvent>
+#include <GL/glu.h>
 #include <QColor>
 #include <QVector2D>
 #include <Qtimer>
