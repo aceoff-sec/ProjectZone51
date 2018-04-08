@@ -18,6 +18,7 @@ public:
     // Methode d'affichage
     virtual void Display();
     virtual void LoseLife();
+    virtual int getLife() { return vie; }
     //Modification position
     void setPos();
     float getX();

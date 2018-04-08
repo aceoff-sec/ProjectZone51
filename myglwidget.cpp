@@ -19,7 +19,7 @@ MyGLWidget::MyGLWidget(QWidget * parent) : QGLWidget(parent)
         updateGL();
     });
 
-    m_AnimationTimer.setInterval(15);
+    m_AnimationTimer.setInterval(10);
     m_AnimationTimer.start();
     // Reglage de la taille/position
 
@@ -40,7 +40,7 @@ void MyGLWidget::initializeGL()
     ball2_ = new Ball(3.5,-0.75,1.5,2);
     ball3_ = new Ball(-3.5,-0.75,1.5,3);
     puck_ = new Puck("Puck",1);
-    wall1_ = new Wall("Wall",1);
+    walls_ = new Wall("Wall",1);
     m_ball.push_back(ball1_);
     m_ball.push_back(ball2_);
     m_ball.push_back(ball3_);
@@ -57,7 +57,7 @@ void MyGLWidget::initializeGL()
         }
     }
 
-    m_object.push_back(wall1_);
+    m_object.push_back(walls_);
 
     image_ = QGLWidget::convertToGLFormat(QImage(":/fond.jpg"));
 
@@ -115,13 +115,26 @@ void MyGLWidget::paintGL()
     glEnable(GL_DEPTH_TEST);
 
 
-    for(Ball * boul : m_ball) {
-        for(Object * obj : m_object) {
-        contact(boul,obj);
 
+    if(firstBall == true && secondBall == false && thirdBall == false) {
+        m_ball[0]->Display();
+        for(Object * obj : m_object) {
+            contact(m_ball[0],obj);
         }
-     boul->Display();
     }
+    if(firstBall == false && secondBall == true && thirdBall == false) {
+        m_ball[0]->Display();
+        for(Object * obj : m_object) {
+            contact(m_ball[0],obj);
+        }
+    }
+    if(firstBall == false && secondBall == false && thirdBall == true) {
+        m_ball[0]->Display();
+        for(Object * obj : m_object) {
+            contact(m_ball[0],obj);
+        }
+    }
+
     for(Object * obj : m_object) {
     obj->Display();}
 
@@ -149,7 +162,39 @@ void MyGLWidget::contact(Ball *boulet,Object *obj)
         }
 
         if(boulet->getY()+boulet->getR() < -ORTHO_DIM) {
-            boulet->LoseLife();
+            qDebug() << m_ball.size();
+            if(m_ball.size() != 0)  {
+                if(boulet->getId() == 1) {
+                    firstBall = false;
+                    secondBall = true;
+                }
+                if(boulet->getId() == 2) {
+                    secondBall = false;
+                    thirdBall = true;
+                }
+                if(boulet->getId() == 3) {
+                    thirdBall = false;
+                    QMessageBox msgBox;
+                    msgBox.setText("Vous avez perdu !");
+                    msgBox.setInformativeText("Voulez vous recommencer ?");
+                    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+                    msgBox.setDefaultButton(QMessageBox::Yes);
+                    int ret = msgBox.exec();
+
+                    switch (ret) {
+                      case QMessageBox::Yes:
+                          Again();
+                          break;
+                      case QMessageBox::No:
+                          window()->close();
+                          break;
+                      default:
+                          break;
+                    }
+                }
+                std::vector<Ball *>::iterator it = m_ball.begin();
+                m_ball.erase(it);
+            }
         }
     }
 
@@ -183,10 +228,10 @@ void MyGLWidget::contact(Ball *boulet,Object *obj)
 
     if(obj->getName()=="Puck") {
         if(boulet->getY()-boulet->getR() <= obj->getInfo("posy")+obj->getInfo("posh")) { //Au niveau du palet
-            qDebug() << boulet->getX()-boulet->getR();
+            /* qDebug() << boulet->getX()-boulet->getR();
             qDebug() << obj->getInfo("posx")-obj->getInfo("posw");
             qDebug() << boulet->getX()+boulet->getR();
-            qDebug() << obj->getInfo("posx")+obj->getInfo("posw");
+            qDebug() << obj->getInfo("posx")+obj->getInfo("posw"); */
             if(boulet->getX()-boulet->getR() < 0) {
                 if(( obj->getInfo("posx")-obj->getInfo("posw")+42 >= boulet->getX()-boulet->getR()) && (boulet->getX()+boulet->getR() >= obj->getInfo("posx")+obj->getInfo("posw")-21)) {
                     boulet->setdy(-dy);
@@ -242,6 +287,37 @@ void MyGLWidget::keyPressEvent(QKeyEvent * event)
 
 }
 
+void MyGLWidget::Again() {
+
+    m_ball.clear();
+    m_object.clear();
+
+    ball1_ = new Ball(0.,-0.75,1.5,1);
+    ball2_ = new Ball(3.5,-0.75,1.5,2);
+    ball3_ = new Ball(-3.5,-0.75,1.5,3);
+
+    puck_ = new Puck("Puck",1);
+    walls_ = new Wall("Wall",1);
+
+    m_ball.push_back(ball1_);
+    m_ball.push_back(ball2_);
+    m_ball.push_back(ball3_);
+    m_object.push_back(puck_);
+
+    for (int i=0;i<10;i++){
+        for(int j=0;j<5;j++){
+        brick_= new brick("Brick",i+j);
+        brick_->setY(-j*10.);
+            brick_->setX(i*17);
+
+           m_object.push_back(brick_);
+        }
+    }
+
+    m_object.push_back(walls_);
+
+    firstBall = true;
+}
 
 void MyGLWidget::displayTime() {
     QString time = QString::number(m_TimeElapsed);

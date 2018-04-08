@@ -2,6 +2,7 @@
 #define MYGLWIDGET_H
 
 #include <QGLWidget>
+#include <QMessageBox>
 #include <QKeyEvent>
 #include <GL/glu.h>
 #include <QColor>
@@ -36,6 +37,7 @@ protected:
     void keyPressEvent(QKeyEvent * event);
     void contact(Ball *boulet, Object *obj);
     void displayTime();
+    void Again();
 
 
 private:
@@ -60,8 +62,11 @@ private:
     Ball * ball3_;
     Puck * puck_;
     brick * brick_;
-    Wall * wall1_;
+    Wall * walls_;
     int idx;
+    bool firstBall = true;
+    bool secondBall = false;
+    bool thirdBall = false;
 
     QImage image_;
     GLuint texture;

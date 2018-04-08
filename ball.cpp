@@ -21,12 +21,13 @@ Ball::~Ball()
     gluDeleteQuadric(quadrique);
 }
 
+
 void Ball::LoseLife(){
     vie=0;
 }
 void Ball::Display()
 {
-    if (vie==1){
+
     glPushMatrix();
 
 
@@ -38,15 +39,13 @@ void Ball::Display()
 
     glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE,colorAmbiante);
 
-    if (vie==1){
+
     //Dessin sphere
     glColor3ub(187, 11, 11);
     gluSphere(quadrique,size,50,50);
 
 
     glPopMatrix();
-    }
-}
 
 }
 
