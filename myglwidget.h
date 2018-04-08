@@ -60,6 +60,7 @@ private:
     Ball * ball1_;
     Ball * ball2_;
     Ball * ball3_;
+    Ball * ball4_;
     Puck * puck_;
     brick * brick_;
     Wall * walls_;

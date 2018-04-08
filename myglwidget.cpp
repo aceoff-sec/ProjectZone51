@@ -19,7 +19,7 @@ MyGLWidget::MyGLWidget(QWidget * parent) : QGLWidget(parent)
         updateGL();
     });
 
-    m_AnimationTimer.setInterval(10);
+    m_AnimationTimer.setInterval(20);
     m_AnimationTimer.start();
     // Reglage de la taille/position
 
@@ -162,17 +162,20 @@ void MyGLWidget::contact(Ball *boulet,Object *obj)
         }
 
         if(boulet->getY()+boulet->getR() < -ORTHO_DIM) {
-            qDebug() << m_ball.size();
             if(m_ball.size() != 0)  {
                 if(boulet->getId() == 1) {
                     firstBall = false;
                     secondBall = true;
+                    thirdBall = false;
                 }
                 if(boulet->getId() == 2) {
+                    firstBall = false;
                     secondBall = false;
                     thirdBall = true;
                 }
                 if(boulet->getId() == 3) {
+                    firstBall = false;
+                    secondBall = false;
                     thirdBall = false;
                     QMessageBox msgBox;
                     msgBox.setText("Vous avez perdu !");
@@ -228,16 +231,16 @@ void MyGLWidget::contact(Ball *boulet,Object *obj)
 
     if(obj->getName()=="Puck") {
         if(boulet->getY()-boulet->getR() <= obj->getInfo("posy")+obj->getInfo("posh")) { //Au niveau du palet
-            /* qDebug() << boulet->getX()-boulet->getR();
+            /*qDebug() << boulet->getX()-boulet->getR();
             qDebug() << obj->getInfo("posx")-obj->getInfo("posw");
             qDebug() << boulet->getX()+boulet->getR();
-            qDebug() << obj->getInfo("posx")+obj->getInfo("posw"); */
-            if(boulet->getX()-boulet->getR() < 0) {
+            qDebug() << obj->getInfo("posx")+obj->getInfo("posw");*/
+            if(boulet->getX()-boulet->getR() < 0) { //Venant de gauche
                 if(( obj->getInfo("posx")-obj->getInfo("posw")+42 >= boulet->getX()-boulet->getR()) && (boulet->getX()+boulet->getR() >= obj->getInfo("posx")+obj->getInfo("posw")-21)) {
                     boulet->setdy(-dy);
                 }
             }
-            if(boulet->getX()-boulet->getR() > 0) {
+            if(boulet->getX()-boulet->getR() > 0) { //Venant de droite
                 if((obj->getInfo("posx")+obj->getInfo("posw") >= boulet->getX()-boulet->getR()-21) && (boulet->getX()+boulet->getR()-21 >= obj->getInfo("posx")-obj->getInfo("posw"))) {
                     boulet->setdy(-dy);
                 }
@@ -292,9 +295,10 @@ void MyGLWidget::Again() {
     m_ball.clear();
     m_object.clear();
 
-    ball1_ = new Ball(0.,-0.75,1.5,1);
-    ball2_ = new Ball(3.5,-0.75,1.5,2);
-    ball3_ = new Ball(-3.5,-0.75,1.5,3);
+    ball1_ = new Ball(0.,-0.75,1.5,1); //balle qui se fait éléminer de suite
+    ball2_ = new Ball(3.5,-0.75,1.5,1);
+    ball3_ = new Ball(-3.5,-0.75,1.5,2);
+    ball4_ = new Ball(0.,-0.75,1.5,3);
 
     puck_ = new Puck("Puck",1);
     walls_ = new Wall("Wall",1);
@@ -302,6 +306,7 @@ void MyGLWidget::Again() {
     m_ball.push_back(ball1_);
     m_ball.push_back(ball2_);
     m_ball.push_back(ball3_);
+    m_ball.push_back(ball4_);
     m_object.push_back(puck_);
 
     for (int i=0;i<10;i++){
