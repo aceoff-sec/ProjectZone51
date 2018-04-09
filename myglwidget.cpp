@@ -118,20 +118,38 @@ void MyGLWidget::paintGL()
 
     if(firstBall == true && secondBall == false && thirdBall == false) {
         m_ball[0]->Display();
+        int i=0;
         for(Object * obj : m_object) {
             contact(m_ball[0],obj);
+            if (obj->getLife()==0){
+            std::vector<Object *>::iterator it=m_object.begin()+i;
+            m_object.erase(it);
+            }
+            i+=1;
         }
     }
     if(firstBall == false && secondBall == true && thirdBall == false) {
         m_ball[0]->Display();
+        int i=0;
         for(Object * obj : m_object) {
             contact(m_ball[0],obj);
+            if (obj->getLife()==0){
+            std::vector<Object *>::iterator it=m_object.begin()+i;
+            m_object.erase(it);
+            }
+            i+=1;
         }
     }
     if(firstBall == false && secondBall == false && thirdBall == true) {
         m_ball[0]->Display();
+        int i=0;
         for(Object * obj : m_object) {
             contact(m_ball[0],obj);
+            if (obj->getLife()==0){
+            std::vector<Object *>::iterator it=m_object.begin()+i;
+            m_object.erase(it);
+            }
+            i+=1;
         }
     }
 
@@ -202,12 +220,9 @@ void MyGLWidget::contact(Ball *boulet,Object *obj)
     }
 
 //
-    if(obj->getName()=="Brick") { //Je n'ai pas compris ton code Schwarzy
-        if(((boulet->getY()-boulet->getR())<=(obj->getInfo("y")/*+obj->getInfo("h")*/)) && (((boulet->getY()+boulet->getR())<=obj->getInfo("y")/*+obj->getInfo("h")*/)))
+    if(obj->getName()=="Brick") {
+        if(((boulet->getY()-boulet->getR())<=(obj->getInfo("y")+obj->getInfo("h"))) && (((boulet->getY()+boulet->getR())<=obj->getInfo("y")+obj->getInfo("h"))) && ((boulet->getX()-boulet->getR())<=(obj->getInfo("x")+obj->getInfo("h"))) && ((boulet->getX()+boulet->getR())>=obj->getInfo("x")))
         {
-             if(((boulet->getX()-boulet->getR())<=(obj->getInfo("x")+obj->getInfo("h"))) && ((boulet->getX()+boulet->getR())>=obj->getInfo("x")))
-             {
-            // Teste au niveau de l"axe des abscisses
 
               // Fait le rebond
               dy=-dy;
@@ -223,7 +238,7 @@ void MyGLWidget::contact(Ball *boulet,Object *obj)
               boulet->setdx(dx);
               boulet->setdy(dy);
 
-            }
+
 
           }}
 
