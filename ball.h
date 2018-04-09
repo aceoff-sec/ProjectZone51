@@ -29,7 +29,7 @@ public:
     void setdx(float x_);
     void setdy(float y_);
     virtual int getId() {return id_;}
-
+    int getLife();
 private:
 
     float x;

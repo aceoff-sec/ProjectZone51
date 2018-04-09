@@ -65,3 +65,4 @@ float Ball::getdx(){return dx;}
 float Ball::getdy(){return dy;}
 void Ball::setdx(float x_){dx=x_;}
 void Ball::setdy(float y_){dy=y_;}
+int Ball::getLife(){return vie;}

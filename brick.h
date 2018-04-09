@@ -24,7 +24,7 @@ public:
     void setY(float Y);
     float getX();
     float getY();
-    int viechy();
+    int getLife();
 private :
      float x;
     float y;

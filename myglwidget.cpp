@@ -202,14 +202,13 @@ void MyGLWidget::contact(Ball *boulet,Object *obj)
     }
 
 //
-    /*if(obj->getName()=="Brick") { //Je n'ai pas compris ton code Schwarzy
-
-        if(((boulet->getY()-boulet->getR())<=(obj->getInfo("y")+obj->getInfo("h"))) && ((boulet->getY()+boulet->getR())<=obj->getInfo("y")+obj->getInfo("h"))) // Si la balle est au niveau de la barre
-          {
-
+    if(obj->getName()=="Brick") { //Je n'ai pas compris ton code Schwarzy
+        if(((boulet->getY()-boulet->getR())<=(obj->getInfo("y")/*+obj->getInfo("h")*/)) && (((boulet->getY()+boulet->getR())<=obj->getInfo("y")/*+obj->getInfo("h")*/)))
+        {
+             if(((boulet->getX()-boulet->getR())<=(obj->getInfo("x")+obj->getInfo("h"))) && ((boulet->getX()+boulet->getR())>=obj->getInfo("x")))
+             {
             // Teste au niveau de l"axe des abscisses
-            if(((boulet->getX()-boulet->getR())<=(obj->getInfo("x")+obj->getInfo("w"))) && ((boulet->getX()+boulet->getR())<=(obj->getInfo("x")+obj->getInfo("w"))))
-            {
+
               // Fait le rebond
               dy=-dy;
 
@@ -224,10 +223,10 @@ void MyGLWidget::contact(Ball *boulet,Object *obj)
               boulet->setdx(dx);
               boulet->setdy(dy);
 
-            } -(boulet->getX()-boulet->getR()) >= obj->getInfo("posx")-obj->getInfo("posw") venant du mur de gauche
+            }
 
-          } boulet->getX()-boulet->getR() <= obj->getInfo("posx")+obj->getInfo("posw")
-    } */
+          }}
+
 
     if(obj->getName()=="Puck") {
         if(boulet->getY()-boulet->getR() <= obj->getInfo("posy")+obj->getInfo("posh")) { //Au niveau du palet

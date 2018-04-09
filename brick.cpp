@@ -87,16 +87,19 @@ void brick::Display()
 
 void brick::setX(float X){
     x=X;
+    infox=x-83;
+
 }
 void brick::setY(float Y){
     y=Y;
+    infoy=y+42;
 }
 float brick::getX(){
     return x;
 }
 float brick::getY(){return y;}
 
-int brick::viechy(){return vie;}
+int brick::getLife(){return vie;}
 
 QString brick::getName(){return name_;}
 
