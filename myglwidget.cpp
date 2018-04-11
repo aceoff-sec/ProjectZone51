@@ -19,7 +19,7 @@ MyGLWidget::MyGLWidget(QWidget * parent) : QGLWidget(parent)
         updateGL();
     });
 
-    m_AnimationTimer.setInterval(20);
+    m_AnimationTimer.setInterval(30);
     m_AnimationTimer.start();
     // Reglage de la taille/position
 
@@ -39,24 +39,26 @@ void MyGLWidget::initializeGL()
     ball1_ = new Ball(0.,-0.75,1.5,1);
     ball2_ = new Ball(3.5,-0.75,1.5,2);
     ball3_ = new Ball(-3.5,-0.75,1.5,3);
-    puck_ = new Puck("Puck",1);
-    walls_ = new Wall("Wall",1);
+    puck_ = new Puck("Puck",50);
+    walls_ = new Wall("Wall",51);
     m_ball.push_back(ball1_);
     m_ball.push_back(ball2_);
     m_ball.push_back(ball3_);
-    m_object.push_back(puck_);
+    nbBrick = 0;
 
 
     for (int i=0;i<10;i++){
         for(int j=0;j<5;j++){
         brick_= new brick("Brick",i+j);
         brick_->setY(-j*10.);
-            brick_->setX(i*17);
+        brick_->setX(i*17);
 
            m_object.push_back(brick_);
+           nbBrick++;
         }
     }
 
+    m_object.push_back(puck_);
     m_object.push_back(walls_);
 
     image_ = QGLWidget::convertToGLFormat(QImage(":/fond.jpg"));
@@ -118,38 +120,20 @@ void MyGLWidget::paintGL()
 
     if(firstBall == true && secondBall == false && thirdBall == false) {
         m_ball[0]->Display();
-        int i=0;
         for(Object * obj : m_object) {
             contact(m_ball[0],obj);
-            if (obj->getLife()==0){
-            std::vector<Object *>::iterator it=m_object.begin()+i;
-            m_object.erase(it);
-            }
-            i+=1;
         }
     }
     if(firstBall == false && secondBall == true && thirdBall == false) {
         m_ball[0]->Display();
-        int i=0;
         for(Object * obj : m_object) {
             contact(m_ball[0],obj);
-            if (obj->getLife()==0){
-            std::vector<Object *>::iterator it=m_object.begin()+i;
-            m_object.erase(it);
-            }
-            i+=1;
         }
     }
     if(firstBall == false && secondBall == false && thirdBall == true) {
         m_ball[0]->Display();
-        int i=0;
         for(Object * obj : m_object) {
             contact(m_ball[0],obj);
-            if (obj->getLife()==0){
-            std::vector<Object *>::iterator it=m_object.begin()+i;
-            m_object.erase(it);
-            }
-            i+=1;
         }
     }
 
@@ -221,26 +205,53 @@ void MyGLWidget::contact(Ball *boulet,Object *obj)
 
 //
     if(obj->getName()=="Brick") {
-        if(((boulet->getY()-boulet->getR())<=(obj->getInfo("y")+obj->getInfo("h"))) && (((boulet->getY()+boulet->getR())<=obj->getInfo("y")+obj->getInfo("h"))) && ((boulet->getX()-boulet->getR())<=(obj->getInfo("x")+obj->getInfo("h"))) && ((boulet->getX()+boulet->getR())>=obj->getInfo("x")))
-        {
+        if(boulet->getY()-boulet->getR()<=obj->getInfo("y")+obj->getInfo("h") || boulet->getY()+boulet->getR()>=obj->getInfo("y")-obj->getInfo("h")) {
+                if(boulet->getX()-boulet->getR()>=obj->getInfo("x")-obj->getInfo("w") && boulet->getX()+boulet->getR()<=obj->getInfo("x")+obj->getInfo("w")) {
+                    // Fait le rebond
+                    dy=-dy;
 
-              // Fait le rebond
-              dy=-dy;
+                    // Oriente différemment la balle selon le contact avec la barre
+                    dx=(boulet->getX()-(obj->getInfo("x")+obj->getInfo("w")/2))/10;
 
-              // Oriente différemment la balle selon le contact avec la barre
-              dx=(boulet->getX()-(obj->getInfo("x")+obj->getInfo("w")/2))/10;
+                    // Met une valeur max et une min
+                    if(dx>0.025)  dx=0.025;
+                    if(dx<-0.025) dx=-0.025;
+                    obj->LoseLife();
+                    if (obj->getLife()==0){
+                        std::vector<Object *>::iterator it=m_object.begin()+obj->getId();
+                        m_object.erase(it);
+                    }
+                    //nbBrick--;
+                    if(nbBrick == 0) {
+                        firstBall = false;
+                        secondBall = false;
+                        thirdBall = false;
 
-              // Met une valeur max et une min
-              if(dx>0.025)  dx=0.025;
-              if(dx<-0.025) dx=-0.025;
-              obj->LoseLife();
+                        QMessageBox msgBox;
+                        msgBox.setText("Vous avez gagné !");
+                        msgBox.setInformativeText("Voulez vous recommencer ?");
+                        msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+                        msgBox.setDefaultButton(QMessageBox::Yes);
+                        int ret = msgBox.exec();
 
-              boulet->setdx(dx);
-              boulet->setdy(dy);
+                        switch (ret) {
+                          case QMessageBox::Yes:
+                              Again();
+                              break;
+                          case QMessageBox::No:
+                              window()->close();
+                              break;
+                          default:
+                              break;
+                        }
+                    }
 
 
-
-          }}
+                    boulet->setdx(dx);
+                    boulet->setdy(dy);
+                }
+          }
+    }
 
 
     if(obj->getName()=="Puck") {
@@ -263,6 +274,7 @@ void MyGLWidget::contact(Ball *boulet,Object *obj)
     }
 
     boulet->setPos();
+
 }
 
 // Fonction de gestion d"interactions clavier
@@ -314,14 +326,14 @@ void MyGLWidget::Again() {
     ball3_ = new Ball(-3.5,-0.75,1.5,2);
     ball4_ = new Ball(0.,-0.75,1.5,3);
 
-    puck_ = new Puck("Puck",1);
-    walls_ = new Wall("Wall",1);
+    puck_ = new Puck("Puck",50);
+    walls_ = new Wall("Wall",51);
 
     m_ball.push_back(ball1_);
     m_ball.push_back(ball2_);
     m_ball.push_back(ball3_);
     m_ball.push_back(ball4_);
-    m_object.push_back(puck_);
+
 
     for (int i=0;i<10;i++){
         for(int j=0;j<5;j++){
@@ -330,9 +342,11 @@ void MyGLWidget::Again() {
             brick_->setX(i*17);
 
            m_object.push_back(brick_);
+           nbBrick++;
         }
     }
 
+    m_object.push_back(puck_);
     m_object.push_back(walls_);
 
     firstBall = true;

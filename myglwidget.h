@@ -68,6 +68,7 @@ private:
     bool firstBall = true;
     bool secondBall = false;
     bool thirdBall = false;
+    int nbBrick;
 
     QImage image_;
     GLuint texture;
