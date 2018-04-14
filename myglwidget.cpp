@@ -45,7 +45,8 @@ void MyGLWidget::initializeGL()
     m_ball.push_back(ball2_);
     m_ball.push_back(ball3_);
     nbBrick = 0;
-
+    score = 0;
+    level = 1;
 
     for (int i=0;i<10;i++){
         for(int j=0;j<5;j++){
@@ -140,7 +141,7 @@ void MyGLWidget::paintGL()
     for(Object * obj : m_object) {
     obj->Display();}
 
-    displayTime();
+    displayInfo();
 }
 
 
@@ -220,6 +221,7 @@ void MyGLWidget::contact(Ball *boulet,Object *obj)
                     if (obj->getLife()==0){
                         std::vector<Object *>::iterator it=m_object.begin()+obj->getId();
                         m_object.erase(it);
+                        score++;
                     }
                     //nbBrick--;
                     if(nbBrick == 0) {
@@ -350,11 +352,18 @@ void MyGLWidget::Again() {
     m_object.push_back(walls_);
 
     firstBall = true;
+    m_TimeElapsed = 0;
+    score = 0;
+    level = 1;
 }
 
-void MyGLWidget::displayTime() {
-    QString time = QString::number(m_TimeElapsed);
-    QFont maFonte("Arial", 20, QFont::DemiBold);
-    glColor3f(0,0,0);
-    renderText(-5,15,0,"Time :" + time,maFonte);
+void MyGLWidget::displayInfo() {
+    time_ = QString::number(m_TimeElapsed);
+    score_ = QString::number(score);
+    level_ = QString::number(level);
+    glColor3f(1,1,1);
+    QFont font("Times",8,QFont::Bold);
+    renderText(3,320,"Time :" + time_,font);
+    renderText(352,320,"Score :" +score_,font);
+    renderText(725,320,"Level :" +level_,font);
 }

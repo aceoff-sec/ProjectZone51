@@ -36,7 +36,7 @@ protected:
     //pression touche
     void keyPressEvent(QKeyEvent * event);
     void contact(Ball *boulet, Object *obj);
-    void displayTime();
+    void displayInfo();
     void Again();
 
 
@@ -72,6 +72,12 @@ private:
 
     QImage image_;
     GLuint texture;
+    QPainter painter;
+    int score;
+    int level;
+    QString time_;
+    QString score_;
+    QString level_;
 };
 
 #endif // MYGLWIDGET_H
