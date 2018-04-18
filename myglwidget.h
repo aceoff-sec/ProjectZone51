@@ -22,6 +22,8 @@ public:
 
     // Constructeur
     MyGLWidget(QWidget * parent = nullptr);
+    void static moveLeft();
+    void static moveRight();
 
 protected:
 
@@ -62,7 +64,7 @@ private:
     Ball * ball2_;
     Ball * ball3_;
     Ball * ball4_;
-    Puck * puck_;
+    static Puck * puck_;
     brick * brick_;
     Wall * walls_;
     int idx;

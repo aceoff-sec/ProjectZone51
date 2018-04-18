@@ -8,6 +8,7 @@ const unsigned int WIN_WIDTH  = 900;
 const unsigned int WIN_HEIGHT = 500;
 const float ASPECT_RATIO      = static_cast<float>(WIN_WIDTH) / WIN_HEIGHT;
 const float ORTHO_DIM         = 50.0f;
+Puck* MyGLWidget::puck_;
 
 
 // Constructeur
@@ -288,14 +289,14 @@ void MyGLWidget::keyPressEvent(QKeyEvent * event)
         // Mouvement du palet à gauche
         case Qt::Key_Left:
         {
-            puck_->moveLeft();
+            moveLeft();
             break;
         }
 
         // Mouvement du palet à droite
         case Qt::Key_Right:
         {
-            puck_->moveRight();
+            moveRight();
             break;
         }
 
@@ -369,4 +370,12 @@ bool MyGLWidget::Nottouched(Object *obj,std::vector<int> vect){
         if(obj->getId()==vect[i]){val=false;}
     }
     return val;
+}
+
+void MyGLWidget::moveLeft() {
+    puck_->moveLeft();
+}
+
+void MyGLWidget::moveRight() {
+    puck_->moveRight();
 }
