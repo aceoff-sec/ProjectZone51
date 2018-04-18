@@ -121,6 +121,7 @@ void MyGLWidget::paintGL()
 
     if(firstBall == true && secondBall == false && thirdBall == false) {
         m_ball[0]->Display();
+
         for(Object * obj : m_object) {
             contact(m_ball[0],obj);
         }
@@ -206,8 +207,14 @@ void MyGLWidget::contact(Ball *boulet,Object *obj)
 
 //
     if(obj->getName()=="Brick") {
-        if(boulet->getY()-boulet->getR()<=obj->getInfo("y")+obj->getInfo("h") || boulet->getY()+boulet->getR()>=obj->getInfo("y")-obj->getInfo("h")) {
-                if(boulet->getX()-boulet->getR()>=obj->getInfo("x")-obj->getInfo("w") && boulet->getX()+boulet->getR()<=obj->getInfo("x")+obj->getInfo("w")) {
+        if(boulet->getY()-boulet->getR()<=obj->getInfo("y")+obj->getInfo("h") && boulet->getY()+boulet->getR()>=obj->getInfo("y") ) {
+
+                if (boulet->getX()+boulet->getR()>=obj->getInfo("x") && boulet->getX()-boulet->getR()<=obj->getInfo("x")+obj->getInfo("w")){
+
+                     qDebug() << "ballbordbas"<< boulet->getY()-boulet->getR()<<"brick bord haut"<<obj->getInfo("y")+obj->getInfo("h");
+                     qDebug() << "ballbordhaut"<< boulet->getY()+boulet->getR()<<"brick bord bas"<<obj->getInfo("y");
+                     qDebug() << "ballbordgauche"<< boulet->getX()-boulet->getR()<<"brick bord droit "<<obj->getInfo("x")+obj->getInfo("w");
+                     qDebug() << "ballborddroit"<< boulet->getX()+boulet->getR()<<"brick bord gauche"<<obj->getInfo("x");
                     // Fait le rebond
                     dy=-dy;
 
@@ -218,11 +225,15 @@ void MyGLWidget::contact(Ball *boulet,Object *obj)
                     if(dx>0.025)  dx=0.025;
                     if(dx<-0.025) dx=-0.025;
                     obj->LoseLife();
-                    if (obj->getLife()==0){
+                    //if (obj->getLife()==0){
                         std::vector<Object *>::iterator it=m_object.begin()+obj->getId();
                         m_object.erase(it);
                         score++;
-                    }
+                        qDebug() << "brick effacee";
+                        //qDebug()<<"iterateur"<<it;
+                        qDebug()<<"id"<<obj->getId();
+                        qDebug() << m_object.size();
+                    //}
                     //nbBrick--;
                     if(nbBrick == 0) {
                         firstBall = false;
@@ -251,8 +262,8 @@ void MyGLWidget::contact(Ball *boulet,Object *obj)
 
                     boulet->setdx(dx);
                     boulet->setdy(dy);
-                }
-          }
+
+          }}
     }
 
 

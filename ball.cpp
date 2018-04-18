@@ -10,8 +10,8 @@ Ball::Ball(float Xb, float Yb, float Larg, int id):Object()
     z=0.;
     size=Larg;
     vie=1;
-    dx=-0.01;
-    dy=-0.01;
+    dx=-0.02;
+    dy=-0.02;
     id_=id;
 }
 
@@ -50,8 +50,8 @@ void Ball::Display()
 }
 
 void Ball::setPos(){
-    x=x+2.5*dx;
-    y=y+2.5*dy;
+    x=x+dx;
+    y=y+dy;
 }
 
 //int Ball::getLife(){return vie;}
