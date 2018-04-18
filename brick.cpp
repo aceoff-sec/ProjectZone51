@@ -24,7 +24,7 @@ brick::~brick()
     gluDeleteQuadric(quadrique);
 }
 void brick::LoseLife(){
-    vie-=1;
+    vie=0;
 }
 float brick::getInfo(QString value){
     if (value=='x'){return infox;}

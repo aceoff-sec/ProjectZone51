@@ -206,16 +206,11 @@ void MyGLWidget::contact(Ball *boulet,Object *obj)
     }
 
 //
-    if(obj->getName()=="Brick") {
+    if(obj->getName()=="Brick" && obj->getLife()!=0) {
         if(boulet->getY()-boulet->getR()<=obj->getInfo("y")+obj->getInfo("h") && boulet->getY()+boulet->getR()>=obj->getInfo("y") ) {
 
                 if (boulet->getX()+boulet->getR()>=obj->getInfo("x") && boulet->getX()-boulet->getR()<=obj->getInfo("x")+obj->getInfo("w")){
-
-                     qDebug() << "ballbordbas"<< boulet->getY()-boulet->getR()<<"brick bord haut"<<obj->getInfo("y")+obj->getInfo("h");
-                     qDebug() << "ballbordhaut"<< boulet->getY()+boulet->getR()<<"brick bord bas"<<obj->getInfo("y");
-                     qDebug() << "ballbordgauche"<< boulet->getX()-boulet->getR()<<"brick bord droit "<<obj->getInfo("x")+obj->getInfo("w");
-                     qDebug() << "ballborddroit"<< boulet->getX()+boulet->getR()<<"brick bord gauche"<<obj->getInfo("x");
-                    // Fait le rebond
+                     // Fait le rebond
                     dy=-dy;
 
                     // Oriente différemment la balle selon le contact avec la barre
@@ -225,16 +220,8 @@ void MyGLWidget::contact(Ball *boulet,Object *obj)
                     if(dx>0.025)  dx=0.025;
                     if(dx<-0.025) dx=-0.025;
                     obj->LoseLife();
-                    //if (obj->getLife()==0){
-                        std::vector<Object *>::iterator it=m_object.begin()+obj->getId();
-                        m_object.erase(it);
-                        score++;
-                        qDebug() << "brick effacee";
-                        //qDebug()<<"iterateur"<<it;
-                        qDebug()<<"id"<<obj->getId();
-                        qDebug() << m_object.size();
-                    //}
-                    //nbBrick--;
+                    nbBrick--;
+                    score++;
                     if(nbBrick == 0) {
                         firstBall = false;
                         secondBall = false;
@@ -269,10 +256,7 @@ void MyGLWidget::contact(Ball *boulet,Object *obj)
 
     if(obj->getName()=="Puck") {
         if(boulet->getY()-boulet->getR() <= obj->getInfo("posy")+obj->getInfo("posh")) { //Au niveau du palet
-            /*qDebug() << boulet->getX()-boulet->getR();
-            qDebug() << obj->getInfo("posx")-obj->getInfo("posw");
-            qDebug() << boulet->getX()+boulet->getR();
-            qDebug() << obj->getInfo("posx")+obj->getInfo("posw");*/
+
             if(boulet->getX()-boulet->getR() < 0) { //Venant de gauche
                 if(( obj->getInfo("posx")-obj->getInfo("posw")+42 >= boulet->getX()-boulet->getR()) && (boulet->getX()+boulet->getR() >= obj->getInfo("posx")+obj->getInfo("posw")-21)) {
                     boulet->setdy(-dy);
@@ -280,7 +264,7 @@ void MyGLWidget::contact(Ball *boulet,Object *obj)
             }
             if(boulet->getX()-boulet->getR() > 0) { //Venant de droite
                 if((obj->getInfo("posx")+obj->getInfo("posw") >= boulet->getX()-boulet->getR()-21) && (boulet->getX()+boulet->getR()-21 >= obj->getInfo("posx")-obj->getInfo("posw"))) {
-                    boulet->setdy(-dy);
+                    boulet->setdy(-dy);                 
                 }
             }
         }
@@ -333,7 +317,7 @@ void MyGLWidget::Again() {
 
     m_ball.clear();
     m_object.clear();
-
+    touched.clear();
     ball1_ = new Ball(0.,-0.75,1.5,1); //balle qui se fait éléminer de suite
     ball2_ = new Ball(3.5,-0.75,1.5,1);
     ball3_ = new Ball(-3.5,-0.75,1.5,2);
@@ -377,4 +361,12 @@ void MyGLWidget::displayInfo() {
     renderText(3,320,"Time :" + time_,font);
     renderText(352,320,"Score :" +score_,font);
     renderText(725,320,"Level :" +level_,font);
+}
+
+bool MyGLWidget::Nottouched(Object *obj,std::vector<int> vect){
+    bool val=true;
+    for(int i : vect) {
+        if(obj->getId()==vect[i]){val=false;}
+    }
+    return val;
 }

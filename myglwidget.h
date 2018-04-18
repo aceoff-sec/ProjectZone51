@@ -38,7 +38,7 @@ protected:
     void contact(Ball *boulet, Object *obj);
     void displayInfo();
     void Again();
-
+    bool Nottouched(Object *obj,std::vector<int> vect);
 
 private:
 
@@ -57,6 +57,7 @@ private:
     //bool pushH_=true;
     std::vector<Object *> m_object;
     std::vector<Ball *> m_ball;
+    std::vector<int> touched;
     Ball * ball1_;
     Ball * ball2_;
     Ball * ball3_;
