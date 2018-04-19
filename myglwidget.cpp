@@ -271,8 +271,9 @@ void MyGLWidget::contact(Ball *boulet,Object *obj)
         }
     }
 
-    boulet->setPos();
-
+    if(space) {
+       boulet->setPos();
+    }
 }
 
 // Fonction de gestion d"interactions clavier
@@ -298,6 +299,15 @@ void MyGLWidget::keyPressEvent(QKeyEvent * event)
         {
             moveRight();
             break;
+        }
+
+        case Qt::Key_Space:
+        {
+            if(firstspace) {
+                space = !space;
+                firstspace = !firstspace;
+                break;
+            }
         }
 
         // Cas par defaut
@@ -351,6 +361,8 @@ void MyGLWidget::Again() {
     m_TimeElapsed = 0;
     score = 0;
     level = 1;
+    space = !space;
+    firstspace = !firstspace;
 }
 
 void MyGLWidget::displayInfo() {
@@ -359,9 +371,14 @@ void MyGLWidget::displayInfo() {
     level_ = QString::number(level);
     glColor3f(1,1,1);
     QFont font("Times",8,QFont::Bold);
+    QFont font2("Times",20,QFont::Bold);
     renderText(3,320,"Time :" + time_,font);
     renderText(352,320,"Score :" +score_,font);
     renderText(725,320,"Level :" +level_,font);
+    if(!space) {
+        renderText(250,260,"Press Space to begin",font2);
+    }
+
 }
 
 bool MyGLWidget::Nottouched(Object *obj,std::vector<int> vect){

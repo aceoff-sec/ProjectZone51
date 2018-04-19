@@ -78,10 +78,10 @@ void MainWindow::capture()
 
             noFirstFrame=true;
 
-            if(vect.x < -5 ) {
+            if(vect.x < -10 ) {
                 MyGLWidget::moveLeft();
             }
-            if(vect.x > 5)  {
+            if(vect.x > 10)  {
                 MyGLWidget::moveRight();
             }
 

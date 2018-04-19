@@ -81,6 +81,8 @@ private:
     QString time_;
     QString score_;
     QString level_;
+    bool space = false;
+    bool firstspace = true;
 };
 
 #endif // MYGLWIDGET_H
