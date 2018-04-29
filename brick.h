@@ -22,22 +22,32 @@ public:
     virtual int getId();
     void setX(float X);
     void setY(float Y);
+    void setR(float R_) { R = R_; }
+    void setV(float V_) { V = V_; }
+    void setB(float B_) { B = B_; }
+    void setPoint(float point_) { point = point_; }
+    void setVie(int vie_) { vie = vie_; }
+    float getPoint() { return point; }
     float getX();
     float getY();
     int getLife();
 private :
-     float x;
+    float x;
     float y;
     float z;
     float size;
     int vie;
-     GLUquadric* quadrique;
-     float infox;
-      float infoy;
-     float infow;
-      float infoh;
-     int id_;
-     QString name_;
+    float point;
+    GLUquadric* quadrique;
+    float infox;
+    float infoy;
+    float infow;
+    float infoh;
+    int id_;
+    QString name_;
+    float R =158;
+    float V =253;
+    float B =56;
 
 };
 

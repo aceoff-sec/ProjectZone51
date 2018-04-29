@@ -14,6 +14,7 @@ brick::brick(QString name, int id):Object()
     infoy=y+42;
     infow=13;
     infoh=6;
+    point = 1;
 
 
 }
@@ -24,7 +25,7 @@ brick::~brick()
     gluDeleteQuadric(quadrique);
 }
 void brick::LoseLife(){
-    vie=0;
+    vie--;
 }
 float brick::getInfo(QString value){
     if (value=='x'){return infox;}
@@ -47,11 +48,11 @@ void brick::Display()
 
     glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE,colorAmbiante);
 
-    if (vie==1){
+    if (vie!=0){
 
     //Dessine un parallelipipaide
     glBegin(GL_QUADS);
-        glColor3ub(158, 253, 56);
+        glColor3ub(R, V, B);
         glVertex3f(-70, 48, 0); glVertex3f( -83, 48, 0);
         glVertex3f( -83, 42, 0);
         glVertex3f(-70, 42, 0);

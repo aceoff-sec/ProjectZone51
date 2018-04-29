@@ -5,7 +5,7 @@ Puck::Puck(QString name, int id):Object()
     quadrique= gluNewQuadric();
 
     //calcul des coordonnÃ©es + taille
-    x=0;
+    x=-19;
     y=-45.;
     z=0.;
     size=4.;

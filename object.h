@@ -13,6 +13,7 @@ public:
     virtual void LoseLife();
     virtual float getInfo(QString value);
     virtual int getLife();
+    virtual float getPoint();
     virtual QString getName();
     virtual int getId();
 

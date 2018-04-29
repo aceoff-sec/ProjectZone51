@@ -24,6 +24,7 @@ public:
     MyGLWidget(QWidget * parent = nullptr);
     void static moveLeft();
     void static moveRight();
+    bool static getSpace() { return space; }
 
 protected:
 
@@ -41,6 +42,7 @@ protected:
     void displayInfo();
     void Again();
     bool Nottouched(Object *obj,std::vector<int> vect);
+    void createBrick();
 
 private:
 
@@ -72,6 +74,7 @@ private:
     bool secondBall = false;
     bool thirdBall = false;
     int nbBrick;
+    int nbBalls = 3;
 
     QImage image_;
     GLuint texture;
@@ -81,8 +84,10 @@ private:
     QString time_;
     QString score_;
     QString level_;
-    bool space = false;
+    QString nbBalls_;
+    static bool space;
     bool firstspace = true;
+    bool firstTime = true;
 };
 
 #endif // MYGLWIDGET_H

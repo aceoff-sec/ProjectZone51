@@ -10,8 +10,10 @@ Ball::Ball(float Xb, float Yb, float Larg, int id):Object()
     z=0.;
     size=Larg;
     vie=1;
-    dx=-0.02;
-    dy=-0.02;
+    val_ = rand()%3 +1;
+    if(val_ == 1) { dx=-0.02; dy=-0.02; }
+    if(val_ == 2) { dx=0.02; dy=-0.02; }
+    if(val_ == 3) { dx=0; dy=-0.02; }
     id_=id;
 }
 

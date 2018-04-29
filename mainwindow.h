@@ -9,6 +9,7 @@
 #include <iostream>
 #include <QString>
 #include "myglwidget.h"
+#include <QThread>
 
 namespace Ui {
 class MainWindow;
@@ -31,7 +32,7 @@ private:
     int frameWidth=320;
     int frameHeight=240;
     // Taille du rectangle vert
-    int subImageWidth=100;
+    int subImageWidth=150;
     int subImageHeight=100;
     // Taille du motif
     int templateWidth=25;

@@ -28,6 +28,8 @@ public:
     float getdy();
     void setdx(float x_);
     void setdy(float y_);
+    void setx(float x_) { x = x_; }
+    void sety(float y_) { y = y_; }
     virtual int getId() {return id_;}
 
 private:
@@ -41,6 +43,7 @@ private:
     float dy;
     GLUquadric* quadrique;
     int id_;
+    int val_;
 
 
 };

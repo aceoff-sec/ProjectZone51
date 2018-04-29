@@ -9,7 +9,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // Ouvre la caméra par défault
     webCam_=new cv::VideoCapture(0);
-
     // Crée le résultat image de matchTemplate
     int result_cols =  frameHeight-templateWidth  + 1;
     int result_rows = frameWidth-templateHeight + 1;
@@ -78,15 +77,18 @@ void MainWindow::capture()
 
             noFirstFrame=true;
 
-            if(vect.x < -10 ) {
-                MyGLWidget::moveLeft();
+            if(MyGLWidget::getSpace()) {
+                if(vect.x < -10 ) {
+                    for(int i=0; i<(-(vect.x))%5; i++) {
+                        MyGLWidget::moveLeft();
+                    }
+                }
+                if(vect.x > 10)  {
+                    for(int i=0; i<(vect.x)%5; i++) {
+                        MyGLWidget::moveRight();
+                    }
+                }
             }
-            if(vect.x > 10)  {
-                MyGLWidget::moveRight();
-            }
-
-
-
         }
         else {
 

@@ -9,6 +9,7 @@ const unsigned int WIN_HEIGHT = 500;
 const float ASPECT_RATIO      = static_cast<float>(WIN_WIDTH) / WIN_HEIGHT;
 const float ORTHO_DIM         = 50.0f;
 Puck* MyGLWidget::puck_;
+bool MyGLWidget::space= false;
 
 
 // Constructeur
@@ -20,7 +21,7 @@ MyGLWidget::MyGLWidget(QWidget * parent) : QGLWidget(parent)
         updateGL();
     });
 
-    m_AnimationTimer.setInterval(30);
+    m_AnimationTimer.setInterval(25);
     m_AnimationTimer.start();
     // Reglage de la taille/position
 
@@ -37,9 +38,9 @@ void MyGLWidget::initializeGL()
     // Activation du zbuffer
     glEnable(GL_DEPTH_TEST);
     //ajout
-    ball1_ = new Ball(0.,-0.75,1.5,1);
-    ball2_ = new Ball(3.5,-0.75,1.5,2);
-    ball3_ = new Ball(-3.5,-0.75,1.5,3);
+    ball1_ = new Ball(-5,-5,1.5,1);
+    ball2_ = new Ball(-5,-5,1.5,2);
+    ball3_ = new Ball(-5,-5,1.5,3);
     puck_ = new Puck("Puck",50);
     walls_ = new Wall("Wall",51);
     m_ball.push_back(ball1_);
@@ -49,16 +50,7 @@ void MyGLWidget::initializeGL()
     score = 0;
     level = 1;
 
-    for (int i=0;i<10;i++){
-        for(int j=0;j<5;j++){
-        brick_= new brick("Brick",i+j);
-        brick_->setY(-j*10.);
-        brick_->setX(i*17);
-
-           m_object.push_back(brick_);
-           nbBrick++;
-        }
-    }
+    createBrick();
 
     m_object.push_back(puck_);
     m_object.push_back(walls_);
@@ -167,6 +159,7 @@ void MyGLWidget::contact(Ball *boulet,Object *obj)
         }
 
         if(boulet->getY()+boulet->getR() < -ORTHO_DIM) {
+            nbBalls--;
             if(m_ball.size() != 0)  {
                 if(boulet->getId() == 1) {
                     firstBall = false;
@@ -222,8 +215,20 @@ void MyGLWidget::contact(Ball *boulet,Object *obj)
                     if(dx<-0.025) dx=-0.025;
                     obj->LoseLife();
                     nbBrick--;
-                    score++;
-                    if(nbBrick == 0) {
+                    if(obj->getLife() == 0) { score=score+obj->getPoint(); }
+                    if(nbBrick == 0 && level ==1) {
+                        boulet->setx(-5);
+                        boulet->sety(-5);
+                        level++;
+                        createBrick();
+                    }
+                    if(nbBrick == 0 && level ==2) {
+                        boulet->setx(-5);
+                        boulet->sety(-5);
+                        level++;
+                        createBrick();
+                    }
+                    if(nbBrick == 0 && level ==3) {
                         firstBall = false;
                         secondBall = false;
                         thirdBall = false;
@@ -361,22 +366,33 @@ void MyGLWidget::Again() {
     m_TimeElapsed = 0;
     score = 0;
     level = 1;
+    nbBalls = 3;
     space = !space;
     firstspace = !firstspace;
+    firstTime = !firstTime;
 }
 
 void MyGLWidget::displayInfo() {
     time_ = QString::number(m_TimeElapsed);
     score_ = QString::number(score);
     level_ = QString::number(level);
+    nbBalls_ = QString::number(nbBalls);
     glColor3f(1,1,1);
     QFont font("Times",8,QFont::Bold);
     QFont font2("Times",20,QFont::Bold);
-    renderText(3,320,"Time :" + time_,font);
-    renderText(352,320,"Score :" +score_,font);
+    renderText(302,320,"Score :" +score_,font);
+    renderText(380,320,"Nb balls :"+nbBalls_, font);
     renderText(725,320,"Level :" +level_,font);
     if(!space) {
-        renderText(250,260,"Press Space to begin",font2);
+        renderText(245,260,"Press Space to begin",font2);
+        renderText(3,320,"Time : 0",font);
+    }
+    else {
+        if(firstTime) {
+            m_TimeElapsed =0;
+            firstTime = !firstTime;
+        }
+        renderText(3,320,"Time :" + time_,font);
     }
 
 }
@@ -390,9 +406,40 @@ bool MyGLWidget::Nottouched(Object *obj,std::vector<int> vect){
 }
 
 void MyGLWidget::moveLeft() {
-    puck_->moveLeft();
+    if(space) {
+        puck_->moveLeft();
+    }
 }
 
 void MyGLWidget::moveRight() {
-    puck_->moveRight();
+    if(space) {
+        puck_->moveRight();
+    }
+}
+
+void MyGLWidget::createBrick() {
+    for (int i=0;i<10;i++){
+        for(int j=0;j<5;j++){
+            if((j==2 || j==4) && level==2) {
+                brick_->setR(250);
+                brick_->setV(250);
+                brick_->setB(0);
+                brick_->setPoint(3);
+                brick_->setVie(2);
+            }
+            if((j==2 || j==4) && level==3) {
+                brick_->setR(250);
+                brick_->setV(0);
+                brick_->setB(250);
+                brick_ ->setPoint(5);
+                brick_->setVie(3);
+            }
+            brick_= new brick("Brick",i+j);
+            brick_->setY(-j*10.);
+            brick_->setX(i*17);
+
+            m_object.push_back(brick_);
+            nbBrick++;
+        }
+    }
 }
