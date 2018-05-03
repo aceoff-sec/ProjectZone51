@@ -1,6 +1,6 @@
 #include "brick.h"
 
-brick::brick(QString name, int id):Object()
+brick::brick(QString name, int id,QImage imb):Object()
 {
     quadrique= gluNewQuadric();
     name_= name;
@@ -15,6 +15,8 @@ brick::brick(QString name, int id):Object()
     infow=13;
     infoh=6;
     point = 1;
+
+
 
 
 }
@@ -46,14 +48,16 @@ void brick::Display()
 
     GLfloat colorAmbiante[]={1,0,1,1};
 
-    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE,colorAmbiante);
+
+
 
     if (vie!=0){
 
     //Dessine un parallelipipaide
     glBegin(GL_QUADS);
         glColor3ub(R, V, B);
-        glVertex3f(-70, 48, 0); glVertex3f( -83, 48, 0);
+        glVertex3f(-70, 48, 0);
+        glVertex3f( -83, 48, 0);
         glVertex3f( -83, 42, 0);
         glVertex3f(-70, 42, 0);
 
@@ -105,3 +109,5 @@ int brick::getLife(){return vie;}
 QString brick::getName(){return name_;}
 
 int brick::getId() {return id_;}
+
+

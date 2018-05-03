@@ -56,7 +56,7 @@ void MyGLWidget::initializeGL()
     m_object.push_back(walls_);
 
     image_ = QGLWidget::convertToGLFormat(QImage(":/fond.jpg"));
-
+    image_b= QGLWidget::convertToGLFormat(QImage(":/brick.jpg"));
     // Create an openGL texture
     glGenTextures(1, &texture);
     glBindTexture(GL_TEXTURE_2D, texture);
@@ -265,12 +265,21 @@ void MyGLWidget::contact(Ball *boulet,Object *obj)
 
             if(boulet->getX()-boulet->getR() < 0) { //Venant de gauche
                 if(( obj->getInfo("posx")-obj->getInfo("posw")+42 >= boulet->getX()-boulet->getR()) && (boulet->getX()+boulet->getR() >= obj->getInfo("posx")+obj->getInfo("posw")-21)) {
+                    dx=(boulet->getX()-(obj->getInfo("posx")+obj->getInfo("posw")/2))/10;
+                    if(dx>0.025)  dx=0.025;
+                    if(dx<-0.025) dx=-0.025;
+                    boulet->setdx(dx);
                     boulet->setdy(-dy);
                 }
             }
             if(boulet->getX()-boulet->getR() > 0) { //Venant de droite
                 if((obj->getInfo("posx")+obj->getInfo("posw") >= boulet->getX()-boulet->getR()-21) && (boulet->getX()+boulet->getR()-21 >= obj->getInfo("posx")-obj->getInfo("posw"))) {
-                    boulet->setdy(-dy);                 
+                    dx=(boulet->getX()-(obj->getInfo("posx")+obj->getInfo("posw")/2))/10;
+                    if(dx>0.025)  dx=0.025;
+                    if(dx<-0.025) dx=-0.025;
+                    boulet->setdx(dx);
+                    boulet->setdy(-dy);
+
                 }
             }
         }
@@ -350,7 +359,7 @@ void MyGLWidget::Again() {
 
     for (int i=0;i<10;i++){
         for(int j=0;j<5;j++){
-        brick_= new brick("Brick",i+j);
+        brick_= new brick("Brick",i+j,image_b);
         brick_->setY(-j*10.);
             brick_->setX(i*17);
 
@@ -434,7 +443,7 @@ void MyGLWidget::createBrick() {
                 brick_ ->setPoint(5);
                 brick_->setVie(3);
             }
-            brick_= new brick("Brick",i+j);
+            brick_= new brick("Brick",i+j,image_b);
             brick_->setY(-j*10.);
             brick_->setX(i*17);
 

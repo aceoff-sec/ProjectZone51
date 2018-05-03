@@ -77,6 +77,7 @@ private:
     int nbBalls = 3;
 
     QImage image_;
+    QImage image_b;
     GLuint texture;
     QPainter painter;
     int score;
