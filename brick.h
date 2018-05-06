@@ -9,7 +9,7 @@
 class brick: public Object
 {
 public:
-    brick(QString name, int id);
+    brick(QString name, int id, QImage imb);
     // Destructeur
     virtual ~brick();
 
@@ -31,6 +31,7 @@ public:
     float getX();
     float getY();
     int getLife();
+    void setImage(QImage imb);
 private :
     float x;
     float y;
@@ -39,6 +40,8 @@ private :
     int vie;
     float point;
     GLUquadric* quadrique;
+    QImage im_b;
+    GLuint texture;
     float infox;
     float infoy;
     float infow;
