@@ -1,4 +1,5 @@
 #include "Puck.h"
+#include <QDebug>
 
 Puck::Puck(QString name, int id):Object()
 {
@@ -8,10 +9,10 @@ Puck::Puck(QString name, int id):Object()
     x=-19;
     y=-45.;
     z=0.;
-    size=4.;
+    size=0;
     infox=x;
     infoy=y;
-    infow=10.5;
+    infow=10.5+(size/2);
     infoh=2.;
     name_ = name;
     id_ = id;
@@ -48,29 +49,29 @@ void Puck::Display()
     //Dessine un parallelipipaide
     glBegin(GL_QUADS);
     glColor3ub(249,66,158);
-    glVertex3f(30., 1., 0.); glVertex3f( -1., 1., 0.);
-    glVertex3f( -1., -1., 0.);
-    glVertex3f(30., -1., 0.);
+    glVertex3f(30+(size/2), 1., 0.); glVertex3f( -1-(size/2), 1., 0.);
+    glVertex3f( -1-(size/2), -1., 0.);
+    glVertex3f(30+(size/2), -1., 0.);
 
-     glVertex3f(30., 1., -1.); glVertex3f(1., -1., -1.);
+     glVertex3f(30+(size/2), 1., -1.); glVertex3f(-1-(size/2), 1., -1.);
     glVertex3f( -1., -1., -1.);
-    glVertex3f( -1., 1., -1.);
+    glVertex3f( 30+(size/2), -1., -1.);
 
-    glVertex3f(30., -1., -1.); glVertex3f(30., -1., 0.);
-    glVertex3f( -1., -1., 0.);
-    glVertex3f( -1., -1., -1.);
+    glVertex3f(30+(size/2), -1., -1.); glVertex3f(30+(size/2), -1., 0.);
+    glVertex3f( -1-(size/2), -1., 0.);
+    glVertex3f( -1-(size/2), -1., -1.);
 
-     glVertex3f(30., 1., -1.); glVertex3f( -1., 1., -1.);
-    glVertex3f( -1., 1., 0.);
-    glVertex3f(30., 1., 0.);
+     glVertex3f(30+(size/2), 1., -1.); glVertex3f( -1-(size/2), 1., -1.);
+    glVertex3f( -1-(size/2), 1., 0.);
+    glVertex3f(30+(size/2), 1., 0.);
 
-    glVertex3f( -1., 1., -1.); glVertex3f( -1., -1., -1.);
-    glVertex3f( -1., -1., 0.);
-    glVertex3f( -1., 1., 0.);
+    glVertex3f( -1-(size/2), 1., -1.); glVertex3f( -1-(size/2), -1., -1.);
+    glVertex3f( -1-(size/2), -1., 0.);
+    glVertex3f( -1-(size/2), 1., 0.);
 
-    glVertex3f(30., 1., -1.); glVertex3f(30., 1., 0.);
-    glVertex3f(30., -1., 0.);
-    glVertex3f(30., -1., -1);
+    glVertex3f(30+(size/2), 1., -1.); glVertex3f(30+(size/2), 1., 0.);
+    glVertex3f(30+(size/2), -1., 0.);
+    glVertex3f(30+(size/2), -1., -1);
     glEnd();
 
 
@@ -82,7 +83,7 @@ void Puck::Display()
 
 
 void Puck::moveLeft() {
-    if(x>=-83) {
+    if(x>=-83+(size/2)) {
         x=x-5;
         infox=x;
     }
@@ -92,7 +93,7 @@ void Puck::moveLeft() {
 }
 
 void Puck::moveRight() {
-    if(x<=53) {
+    if(x<=53-(size/2)) {
         x=x+5;
         infox=x;
     }
@@ -105,3 +106,8 @@ QString Puck::getName(){return name_;}
 
 int Puck::getId() {return id_;}
 
+void Puck::setSize(float size_) {
+    size = size_;
+    infow=10.5+(size/2);
+    qDebug() << size;
+}

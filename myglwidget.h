@@ -25,6 +25,9 @@ public:
     void static moveLeft();
     void static moveRight();
     bool static getSpace() { return space; }
+    void static setSize(float size);
+    void static setName(QString name) { name_ = name; }
+    static QString name_;
 
 protected:
 
@@ -43,6 +46,8 @@ protected:
     void Again();
     bool Nottouched(Object *obj,std::vector<int> vect);
     void createBrick();
+    void save(QString player, float val);
+
 
 private:
 

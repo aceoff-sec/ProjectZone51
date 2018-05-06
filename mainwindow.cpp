@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -9,13 +10,20 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // Ouvre la caméra par défault
     webCam_=new cv::VideoCapture(0);
+
+    //webCam_->set(CV_CAP_PROP_FRAME_WIDTH,500);
+    //webCam_->set(CV_CAP_PROP_FRAME_HEIGHT,100);
     // Crée le résultat image de matchTemplate
     int result_cols =  frameHeight-templateWidth  + 1;
     int result_rows = frameWidth-templateHeight + 1;
     resultImage.create( result_cols, result_rows, CV_32FC1 );
 
+    //On transmet les informations sur la taille du palet
+    //ui->GLwidget->setSize(taille);
+
     // On utilise un timer toutes les milisecondes, il appelle le slot capture
     QTimer *timer= new QTimer();
+    QTimer::singleShot(1,this,SLOT(game()));
     connect(timer,SIGNAL(timeout()),this,SLOT(capture()));
     timer->start(1);
 }
@@ -28,7 +36,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::capture()
 {
-
     if (webCam_->isOpened()) {
 
         if (webCam_->read(frame2)) {   // Capture une frame
@@ -73,7 +80,7 @@ void MainWindow::capture()
             // Display on label
             ui->imageLabel_->setPixmap(QPixmap::fromImage(img));
             // Resize the label to fit the image
-            //ui->imageLabel_->resize(ui->imageLabel_->pixmap()->size());
+            ui->imageLabel_->resize(ui->imageLabel_->pixmap()->size());
 
             noFirstFrame=true;
 
@@ -95,4 +102,9 @@ void MainWindow::capture()
         }
 
     }
+}
+
+void MainWindow::game() {
+    StartGame st;
+    st.exec() ;
 }

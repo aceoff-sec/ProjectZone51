@@ -21,6 +21,8 @@ public:
     //setter & getter
     void moveLeft();
     void moveRight();
+    virtual float getSize() { return size; }
+    void setSize(float size_);
 
 
 protected:
@@ -37,6 +39,7 @@ protected:
     QString name_;
     int id_;
 
+private :
 
 };
 

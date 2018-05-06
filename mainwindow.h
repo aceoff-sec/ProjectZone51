@@ -9,6 +9,7 @@
 #include <iostream>
 #include <QString>
 #include "myglwidget.h"
+#include "startgame.h"
 #include <QThread>
 
 namespace Ui {
@@ -48,7 +49,7 @@ private:
 
 private slots:
     void capture();
-
+    void game();
 };
 
 #endif // MAINWINDOW_H

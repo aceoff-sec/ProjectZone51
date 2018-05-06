@@ -25,4 +25,4 @@ float Object::getInfo(QString value){}
 QString Object::getName() {}
 int Object::getId() {}
 float Object::getPoint() {}
-
+float Object::getSize() {}

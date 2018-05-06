@@ -2,6 +2,7 @@
 #include <QApplication>
 #include <QDesktopWidget>
 #include <QDebug>
+#include <fstream>
 
 // Declarations des constantes
 const unsigned int WIN_WIDTH  = 900;
@@ -10,6 +11,8 @@ const float ASPECT_RATIO      = static_cast<float>(WIN_WIDTH) / WIN_HEIGHT;
 const float ORTHO_DIM         = 50.0f;
 Puck* MyGLWidget::puck_;
 bool MyGLWidget::space= false;
+QString MyGLWidget::name_;
+
 
 
 // Constructeur
@@ -21,7 +24,7 @@ MyGLWidget::MyGLWidget(QWidget * parent) : QGLWidget(parent)
         updateGL();
     });
 
-    m_AnimationTimer.setInterval(25);
+    m_AnimationTimer.setInterval(2);
     m_AnimationTimer.start();
     // Reglage de la taille/position
 
@@ -175,6 +178,8 @@ void MyGLWidget::contact(Ball *boulet,Object *obj)
                     firstBall = false;
                     secondBall = false;
                     thirdBall = false;
+                    qDebug() << name_;
+                    save(name_,(float)score);
                     QMessageBox msgBox;
                     msgBox.setText("Vous avez perdu !");
                     msgBox.setInformativeText("Voulez vous recommencer ?");
@@ -234,6 +239,7 @@ void MyGLWidget::contact(Ball *boulet,Object *obj)
                         thirdBall = false;
 
                         QMessageBox msgBox;
+                        save(name_,(float)score);
                         msgBox.setText("Vous avez gagné !");
                         msgBox.setInformativeText("Voulez vous recommencer ?");
                         msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
@@ -442,4 +448,19 @@ void MyGLWidget::createBrick() {
             nbBrick++;
         }
     }
+}
+
+void MyGLWidget::setSize(float size) {
+    qDebug()<<"b";
+    puck_->setSize(size);
+    qDebug() <<"a";
+}
+
+void MyGLWidget::save(QString player, float val) {
+    std::fstream os("scores.txt",std::ios::app);
+    os<<player.toStdString().c_str();
+    os<< " ";
+    os<<std::to_string((int)val).c_str();
+    os<<";";
+    os.close();
 }

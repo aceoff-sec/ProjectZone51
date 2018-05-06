@@ -16,6 +16,7 @@ public:
     virtual float getPoint();
     virtual QString getName();
     virtual int getId();
+    virtual float getSize();
 
 protected :
 

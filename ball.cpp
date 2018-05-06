@@ -11,9 +11,9 @@ Ball::Ball(float Xb, float Yb, float Larg, int id):Object()
     size=Larg;
     vie=1;
     val_ = rand()%3 +1;
-    if(val_ == 1) { dx=-0.02; dy=-0.02; }
-    if(val_ == 2) { dx=0.02; dy=-0.02; }
-    if(val_ == 3) { dx=0; dy=-0.02; }
+    if(val_ == 1) { dx=-0.018; dy=-0.018; }
+    if(val_ == 2) { dx=0.018; dy=-0.018; }
+    if(val_ == 3) { dx=0; dy=-0.018; }
     id_=id;
 }
 

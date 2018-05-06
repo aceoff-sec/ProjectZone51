@@ -2,6 +2,7 @@
 #include <ctime>
 #include "myglwidget.h"
 #include "mainwindow.h"
+#include "startgame.h"
 
 int main(int argc, char *argv[])
 {
@@ -14,6 +15,9 @@ int main(int argc, char *argv[])
 	// Creation du widget opengl
     MainWindow glWidget;
     glWidget.show();
+    //StartGame st;
+    //st.show();
+
 
     // Execution de l'application QT
     return app.exec();

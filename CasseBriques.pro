@@ -24,7 +24,8 @@ SOURCES	+= main.cpp myglwidget.cpp \
     puck.cpp \
     object.cpp \
     brick.cpp \
-    wall.cpp
+    wall.cpp \
+    startgame.cpp
     wall.cpp
 HEADERS += myglwidget.h \
     mainwindow.h \
@@ -32,11 +33,13 @@ HEADERS += myglwidget.h \
     puck.h \
     object.h \
     brick.h \
-    wall.h
+    wall.h \
+    startgame.h
     wall.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    startgame.ui
 
 INCLUDEPATH +=$$(OPENCV_DIR)\..\..\include
 
