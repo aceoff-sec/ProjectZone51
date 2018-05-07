@@ -8,14 +8,16 @@ StartGame::StartGame(QWidget *parent) :
     ui(new Ui::StartGame)
 {
     ui->setupUi(this);
-    std::ifstream file("scores.txt");
-    std::string text;
-    while(std::getline(file,text,';')) {
-        file >> text;
-        std::cout<<text;
-        ui->textEdit->append(QString::fromStdString(text)+"\n");
+    QFile file("scores.txt");
+    if(!file.open(QIODevice::ReadOnly | QIODevice::Text)){
+        return;
     }
-    file.close();
+    QTextStream in(&file);
+    QString line;
+    while(!in.atEnd()) {
+        line = in.readLine();
+        ui->textEdit->append(line);
+    }
 }
 
 StartGame::~StartGame()

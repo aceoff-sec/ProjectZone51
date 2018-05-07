@@ -2,19 +2,23 @@
 
 Ball::Ball(float Xb, float Yb, float Larg, int id):Object()
 {
+    // On crée une nouvelle quadrique
     quadrique= gluNewQuadric();
 
-    //calcul des coordonnÃ©es + taille
+    // Mise à jour des chanmps de la classe pour une balle
     x=Xb;
     y=Yb;
     z=0.;
     size=Larg;
     vie=1;
-    val_ = rand()%3 +1;
-    if(val_ == 1) { dx=-0.018; dy=-0.018; }
-    if(val_ == 2) { dx=0.018; dy=-0.018; }
-    if(val_ == 3) { dx=0; dy=-0.018; }
     id_=id;
+
+    // On donne la possibilité à la balle d'avoir 3 directions possibles de départ (choisit aléatoirement)
+    val_ = rand()%3 +1;
+    if(val_ == 1) { dx=-0.04; dy=-0.04; }
+    if(val_ == 2) { dx=0.04; dy=-0.04; }
+    if(val_ == 3) { dx=0; dy=-0.04; }
+
 }
 
 Ball::~Ball()
@@ -27,38 +31,30 @@ Ball::~Ball()
 void Ball::LoseLife(){
     vie=0;
 }
+
 void Ball::Display()
 {
 
     glPushMatrix();
 
-
-    //translate
+    // Translate
     glTranslatef(x,y,z);
-    // Affichage de la quadrique
 
+    // Eclairage de la quadrique (utile si une lampe est mise en place uniquement)
     GLfloat colorAmbiante[]={1.,0.,1.,1.};
-
     glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE,colorAmbiante);
 
-
-    //Dessin sphere
+    // Dessin de la quadrique (3D)
     glColor3ub(187, 11, 11);
     gluSphere(quadrique,size,50,50);
 
-
     glPopMatrix();
-
 }
 
 void Ball::setPos(){
     x=x+dx;
     y=y+dy;
 }
-
-//int Ball::getLife(){return vie;}
-
-
 
 float Ball::getX(){return x;}
 float Ball::getY(){return y;}

@@ -21,6 +21,7 @@ public:
     //setter & getter
     void moveLeft();
     void moveRight();
+    void moveStop();
     virtual float getSize() { return size; }
     void setSize(float size_);
 

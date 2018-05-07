@@ -2,21 +2,27 @@
 #include <GL/glu.h>
 #include "object.h"
 #include "qstring.h"
+
 #ifndef BRICK_H
 #define BRICK_H
 
-
-class brick: public Object
+// Classe qui permet de gérer les briques et leur affchage, ainsi que le nombre de points par briques en fonction des vie des briques
+class brick: public Object // Hérite de classe abstraite Object
 {
 public:
+    //Constructeur
     brick(QString name, int id, QImage imb);
+
     // Destructeur
     virtual ~brick();
 
     // Methode d'affichage
     virtual void Display();
-    //
+    // Methodes relatives à la vie
     virtual void LoseLife();
+    int getLife();
+
+
     virtual float getInfo(QString value);
     virtual QString getName();
     virtual int getId();
@@ -30,7 +36,7 @@ public:
     float getPoint() { return point; }
     float getX();
     float getY();
-    int getLife();
+
     void setImage(QImage imb);
 private :
     float x;

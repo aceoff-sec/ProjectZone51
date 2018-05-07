@@ -1,15 +1,16 @@
-
 #include <GL/glu.h>
 #include <QColor>
 #include "object.h"
-
-
 #include <QGLWidget>
+
 #ifndef BALL_H
 #define BALL_H
-class Ball : public Object
+
+// Classe qui permet de gérer les balles du jeu ainsi que leurs mouvements
+class Ball : public Object // Hérite de la classe abstraire Object
 {
 public:
+    // Constructeur
     Ball(float Xb,float Yb,float Larg, int id);
 
     // Destructeur
@@ -17,9 +18,12 @@ public:
 
     // Methode d'affichage
     virtual void Display();
+
+    // Méthodes relatives à la vie
     virtual void LoseLife();
     virtual int getLife();
-    //Modification position
+
+    // Modification position
     void setPos();
     float getX();
     float getY();
@@ -30,10 +34,11 @@ public:
     void setdy(float y_);
     void setx(float x_) { x = x_; }
     void sety(float y_) { y = y_; }
+
+    // Retourne le numéro de la balle en cours
     virtual int getId() {return id_;}
 
 private:
-
     float x;
     float y;
     float z;
@@ -44,8 +49,6 @@ private:
     GLUquadric* quadrique;
     int id_;
     int val_;
-
-
 };
 
 #endif // Ball_H

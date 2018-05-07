@@ -84,7 +84,7 @@ void Puck::Display()
 
 void Puck::moveLeft() {
     if(x>=-83+(size/2)) {
-        x=x-5;
+        x=x-6;
         infox=x;
     }
     else {
@@ -94,12 +94,17 @@ void Puck::moveLeft() {
 
 void Puck::moveRight() {
     if(x<=53-(size/2)) {
-        x=x+5;
+        x=x+6;
         infox=x;
     }
     else {
 
     }
+}
+
+void Puck::moveStop() {
+    x=x;
+    infox=x;
 }
 
 QString Puck::getName(){return name_;}
@@ -109,5 +114,4 @@ int Puck::getId() {return id_;}
 void Puck::setSize(float size_) {
     size = size_;
     infow=10.5+(size/2);
-    qDebug() << size;
 }

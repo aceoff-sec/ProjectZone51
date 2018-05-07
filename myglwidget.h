@@ -24,6 +24,7 @@ public:
     MyGLWidget(QWidget * parent = nullptr);
     void static moveLeft();
     void static moveRight();
+    void static moveStop();
     bool static getSpace() { return space; }
     void static setSize(float size);
     void static setName(QString name) { name_ = name; }

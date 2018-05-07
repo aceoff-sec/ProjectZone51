@@ -24,7 +24,7 @@ MyGLWidget::MyGLWidget(QWidget * parent) : QGLWidget(parent)
         updateGL();
     });
 
-    m_AnimationTimer.setInterval(2);
+    m_AnimationTimer.setInterval(20);
     m_AnimationTimer.start();
     // Reglage de la taille/position
 
@@ -97,6 +97,7 @@ void MyGLWidget::paintGL()
 
     // Reinitialisation des tampons
     glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+    //gluLookAt(0, -15, 20, 0, 0, 0, 0, 1, 0);
 
     glEnable(GL_TEXTURE_2D);
     glDisable(GL_DEPTH_TEST);
@@ -178,7 +179,6 @@ void MyGLWidget::contact(Ball *boulet,Object *obj)
                     firstBall = false;
                     secondBall = false;
                     thirdBall = false;
-                    qDebug() << name_;
                     save(name_,(float)score);
                     QMessageBox msgBox;
                     msgBox.setText("Vous avez perdu !");
@@ -270,7 +270,7 @@ void MyGLWidget::contact(Ball *boulet,Object *obj)
         if(boulet->getY()-boulet->getR() <= obj->getInfo("posy")+obj->getInfo("posh")) { //Au niveau du palet
 
             if(boulet->getX()-boulet->getR() < 0) { //Venant de gauche
-                if(( obj->getInfo("posx")-obj->getInfo("posw")+42 >= boulet->getX()-boulet->getR()) && (boulet->getX()+boulet->getR() >= obj->getInfo("posx")+obj->getInfo("posw")-21)) {
+                if(( obj->getInfo("posx")-obj->getInfo("posw")+42+obj->getSize() >= boulet->getX()-boulet->getR()) && (boulet->getX()+boulet->getR() >= obj->getInfo("posx")+obj->getInfo("posw")-21-obj->getSize())) {
                     dx=(boulet->getX()-(obj->getInfo("posx")+obj->getInfo("posw")/2))/10;
                     if(dx>0.025)  dx=0.025;
                     if(dx<-0.025) dx=-0.025;
@@ -279,7 +279,7 @@ void MyGLWidget::contact(Ball *boulet,Object *obj)
                 }
             }
             if(boulet->getX()-boulet->getR() > 0) { //Venant de droite
-                if((obj->getInfo("posx")+obj->getInfo("posw") >= boulet->getX()-boulet->getR()-21) && (boulet->getX()+boulet->getR()-21 >= obj->getInfo("posx")-obj->getInfo("posw"))) {
+                if((obj->getInfo("posx")+obj->getInfo("posw") >= boulet->getX()-boulet->getR()-21-obj->getSize()) && (boulet->getX()+boulet->getR() >= obj->getInfo("posx")-obj->getInfo("posw"))) {
                     dx=(boulet->getX()-(obj->getInfo("posx")+obj->getInfo("posw")/2))/10;
                     if(dx>0.025)  dx=0.025;
                     if(dx<-0.025) dx=-0.025;
@@ -432,6 +432,11 @@ void MyGLWidget::moveRight() {
     }
 }
 
+void MyGLWidget::moveStop() {
+    if(space) {
+        puck_->moveStop();
+    }
+}
 void MyGLWidget::createBrick() {
     for (int i=0;i<10;i++){
         for(int j=0;j<5;j++){
@@ -457,19 +462,20 @@ void MyGLWidget::createBrick() {
             nbBrick++;
         }
     }
+    updateGL();
 }
 
 void MyGLWidget::setSize(float size) {
-    qDebug()<<"b";
     puck_->setSize(size);
-    qDebug() <<"a";
 }
 
 void MyGLWidget::save(QString player, float val) {
-    std::fstream os("scores.txt",std::ios::app);
-    os<<player.toStdString().c_str();
-    os<< " ";
-    os<<std::to_string((int)val).c_str();
-    os<<";";
-    os.close();
+    if(!player.toStdString().empty()) {
+        std::fstream os("scores.txt",std::ios::app);
+        os<<player.toStdString().c_str();
+        os<< " ";
+        os<<std::to_string((int)val).c_str();
+        os<<"\n";
+        os.close();
+    }
 }
