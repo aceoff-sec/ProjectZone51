@@ -38,15 +38,19 @@ float brick::getInfo(QString value){
 //int brick::getLife(){return vie;}
 void brick::Display()
 {
-
+    glClear(GL_DEPTH_BUFFER_BIT);
+    glEnable(GL_DEPTH_TEST);
      glPushMatrix();
+     //glEnable(GL_COLOR_MATERIAL);
 
+     GLfloat colorAmbiante[]={R/255.,V/255.,B/255.,1};
 
+     GLfloat Noir[]={0.,0.,0.,1.};
+     glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE,colorAmbiante);
+     glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION,Noir);
     //translate
     glTranslatef(x,y,z);
     // Affichage de la quadrique
-
-    GLfloat colorAmbiante[]={1,0,1,1};
 
 
 
@@ -55,7 +59,8 @@ void brick::Display()
 
     //Dessine un parallelipipaide
     glBegin(GL_QUADS);
-        glColor3ub(R, V, B);
+
+        //glColor3ub(R, V, B);
         glVertex3f(-70, 48, 0);
         glVertex3f( -83, 48, 0);
         glVertex3f( -83, 42, 0);
@@ -85,7 +90,6 @@ void brick::Display()
     }
 
     glPopMatrix();
-
 
 }
 

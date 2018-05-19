@@ -36,10 +36,25 @@ MyGLWidget::MyGLWidget(QWidget * parent) : QGLWidget(parent)
 void MyGLWidget::initializeGL()
 {
     // Reglage de la couleur de fond
-    //glClearColor(r,v,b,alpha);
-
+    glClearColor(0.f, 0.f, 0.f,0.f);
+    //Lumière
+   // glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
     // Activation du zbuffer
-    glEnable(GL_DEPTH_TEST);
+
+    glEnable(GL_LIGHTING);
+        //Premiere lampe
+        GLfloat param[]={1.,1.,1.,1.0};
+        glLightfv(GL_LIGHT0, GL_AMBIENT_AND_DIFFUSE,param);
+        GLfloat position[]={0.0,0.0,1.,0.0};
+        glLightfv(GL_LIGHT0,GL_POSITION,position);
+        //Deuxieme lampe
+        /*glLightfv(GL_LIGHT1, GL_AMBIENT_AND_DIFFUSE,param);
+        GLfloat position2[]={-20.0,0.0,-40.,0.0};
+        glLightfv(GL_LIGHT0,GL_POSITION,position2);*/
+    glEnable(GL_LIGHT0);
+    //glEnable(GL_LIGHT1);
+
+        glEnable(GL_DEPTH_TEST);
     //ajout
     ball1_ = new Ball(-5,-5,1.5,1);
     ball2_ = new Ball(-5,-5,1.5,2);
@@ -59,13 +74,16 @@ void MyGLWidget::initializeGL()
     m_object.push_back(walls_);
 
     image_ = QGLWidget::convertToGLFormat(QImage(":/fond.jpg"));
-    image_b= QGLWidget::convertToGLFormat(QImage(":/brick.jpg"));
+
     // Create an openGL texture
     glGenTextures(1, &texture);
     glBindTexture(GL_TEXTURE_2D, texture);
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image_.width(), image_.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, static_cast<GLubyte*>(image_.bits()));
+
+
+
 
 
 
@@ -97,12 +115,14 @@ void MyGLWidget::paintGL()
 
     // Reinitialisation des tampons
     glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
-    //gluLookAt(0, -15, 20, 0, 0, 0, 0, 1, 0);
-
+    // Definition de la position de la camera
+    gluLookAt(0,-2,22,0,0,0,0,1,0);
+    glLoadIdentity();
     glEnable(GL_TEXTURE_2D);
     glDisable(GL_DEPTH_TEST);
-    glColor3f(1.0f,1.0f,1.0f);
-
+    //glColor3f(1.0f,1.0f,1.0f);
+    GLfloat param1[]={1.,1.,1.,1.0};
+    glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,param1);
 
     glBegin(GL_QUADS);
         glTexCoord2f(0.0f, 0.0f); glVertex2f( -100.0f, -50.0f);

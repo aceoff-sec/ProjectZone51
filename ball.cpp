@@ -36,19 +36,21 @@ void Ball::Display()
 {
 
     glPushMatrix();
-
+     glDisable(GL_COLOR_MATERIAL);
     // Translate
     glTranslatef(x,y,z);
 
     // Eclairage de la quadrique (utile si une lampe est mise en place uniquement)
-    GLfloat colorAmbiante[]={1.,0.,1.,1.};
+    GLfloat colorAmbiante[]={1.,0.,0.,1.};
     glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE,colorAmbiante);
-
+    GLfloat Noir[]={0.,0.,0.,1.};
+    glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION,Noir);
     // Dessin de la quadrique (3D)
-    glColor3ub(187, 11, 11);
+
     gluSphere(quadrique,size,50,50);
 
     glPopMatrix();
+
 }
 
 void Ball::setPos(){
