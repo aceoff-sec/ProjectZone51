@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.5.0, 2018-03-31T12:58:23. -->
+<!-- Written by QtCreator 4.5.0, 2018-05-19T11:01:32. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
-  <value type="QByteArray">{7965ac90-7ba3-432e-9eac-ae4081c9a449}</value>
+  <value type="QByteArray">{c792e125-52e4-4bf7-ad12-81da4af15f18}</value>
  </data>
  <data>
   <variable>ProjectExplorer.Project.ActiveTarget</variable>
@@ -285,8 +285,8 @@
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">CasseBriques</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:C:/Users/Adrien/Desktop/cours/bibli/projet/ProjectZone51/ProjectZone51/CasseBriques.pro</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">CasseBriques2</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:C:/Users/nicoo/Documents/Télécom Saint-Etienne/Deuxième année/Semestre 8/Bibliothèque Multimédia/Projet Bibliothèque/Projet/ProjectZone51/CasseBriques.pro</value>
     <value type="bool" key="QmakeProjectManager.QmakeRunConfiguration.UseLibrarySearchPath">true</value>
     <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.CommandLineArguments"></value>
     <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.ProFile">CasseBriques.pro</value>
