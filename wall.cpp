@@ -26,20 +26,24 @@ Wall::~Wall()
 void Wall::Display()
 {
     glPushMatrix();
-
-
+    //couleurs des murs
+    GLfloat colorAmbianteB[]={1.,0.,0.,1.};
+    GLfloat colorAmbianteH[]={0.,1.,0.,1.};
+    GLfloat Noir[]={0.,0.,0.,1.};
     //Mur du bas
     glTranslatef(xHorizontal,yDown,z);
 
+
     //Dessine un rectangle
     glBegin(GL_POLYGON) ;
-    glColor3f(1,0,0);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE,colorAmbianteB);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION,Noir);
     glVertex2f(-90.0F,-0.5F) ;
-    glColor3f(1,0,0);
+
     glVertex2f(-90.0F,0.5F) ;
-    glColor3f(1,0,0);
+
     glVertex2f(90.0F,0.5F) ;
-    glColor3f(1,0,0);
+
     glVertex2f(90.0F,-0.5F) ;
     glEnd();
 
@@ -48,14 +52,20 @@ void Wall::Display()
     //Mur du haut
     glTranslatef(xHorizontal,yUp,z);
 
+
+
+
     glBegin(GL_POLYGON) ;
-    glColor3f(0,1,0);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE,colorAmbianteH);
+
+    glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION,Noir);
+
     glVertex2f(-90.0F,-0.5F) ;
-    glColor3f(0,1,0);
+
     glVertex2f(-90.0F,0.5F) ;
-    glColor3f(0,1,0);
+
     glVertex2f(90.0F,0.5F) ;
-    glColor3f(0,1,0);
+
     glVertex2f(90.0F,-0.5F) ;
     glEnd();
 
@@ -65,13 +75,13 @@ void Wall::Display()
     glTranslatef(xVerticalGauche,0,z);
 
     glBegin(GL_POLYGON) ;
-    glColor3f(0,1,0);
+
     glVertex2f(-0.5F,-100.0F) ;
-    glColor3f(0,1,0);
+
     glVertex2f(-0.5F,100.0F) ;
-    glColor3f(0,1,0);
+
     glVertex2f(0.5F,100.0F) ;
-    glColor3f(0,1,0);
+
     glVertex2f(0.5F,-100.0F) ;
     glEnd();
 
@@ -81,13 +91,13 @@ void Wall::Display()
     glTranslatef(xVerticalDroite,0,z);
 
     glBegin(GL_POLYGON) ;
-    glColor3f(0,1,0);
+
     glVertex2f(-0.5F,-100.0F) ;
-    glColor3f(0,1,0);
+
     glVertex2f(-0.5F,100.0F) ;
-    glColor3f(0,1,0);
+
     glVertex2f(0.5F,100.0F) ;
-    glColor3f(0,1,0);
+
     glVertex2f(0.5F,-100.0F) ;
     glEnd();
 
