@@ -29,8 +29,8 @@ private:
     int frameWidth=320;
     int frameHeight=240;
     // Taille du rectangle vert
-    int subImageWidth=150;
-    int subImageHeight=100;
+    int subImageWidth=75;
+    int subImageHeight=50;
     // Taille du motif
     int templateWidth=25;
     int templateHeight=25;
@@ -42,6 +42,7 @@ private:
     cv::Mat frame1,frame2,frameRect1,frameRect2;
     // Stocker le résultat de matchTemplate
     cv::Mat resultImage;
+    cv::Mat resultImage2;
 private slots:
     void capture(); // Permet de rendre la caméra active et de gérer le mouvement du palet selon le déplacement horizontal
     void game(); // Permet d'appeler la fenêtre de dialogue permettant de choisir le taille du palet et de voir le tableau des scores

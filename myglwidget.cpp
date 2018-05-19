@@ -370,9 +370,9 @@ void MyGLWidget::Again() {
     m_object.clear();
     touched.clear();
     ball1_ = new Ball(0.,-0.75,1.5,1); //balle qui se fait éléminer de suite
-    ball2_ = new Ball(3.5,-0.75,1.5,1);
-    ball3_ = new Ball(-3.5,-0.75,1.5,2);
-    ball4_ = new Ball(0.,-0.75,1.5,3);
+    ball2_ = new Ball(-5,-3,1.5,1);
+    ball3_ = new Ball(-5,-3,1.5,2);
+    ball4_ = new Ball(-5,-3,1.5,3);
 
     puck_ = new Puck("Puck",50);
     walls_ = new Wall("Wall",51);

@@ -2,7 +2,7 @@
 #ifndef OBJECT_H
 #define OBJECT_H
 
-// Classe abstraite qui gère les méthodes et l'affichage en commun des différents objets (Nicolas)
+// Classe abstraite qui gère les méthodes et l'affichage en commun des différents objets (Adrien & Nicolas)
 class Object
 {
 public:
