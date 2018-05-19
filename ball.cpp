@@ -10,7 +10,6 @@ Ball::Ball(float Xb, float Yb, float Larg, int id):Object()
     y=Yb;
     z=0.;
     size=Larg;
-    vie=1;
     id_=id;
 
     // On donne la possibilité à la balle d'avoir 3 directions possibles de départ (choisit aléatoirement)
@@ -28,9 +27,6 @@ Ball::~Ball()
 }
 
 
-void Ball::LoseLife(){
-    vie=0;
-}
 
 void Ball::Display()
 {
@@ -63,4 +59,3 @@ float Ball::getdx(){return dx;}
 float Ball::getdy(){return dy;}
 void Ball::setdx(float x_){dx=x_;}
 void Ball::setdy(float y_){dy=y_;}
-int Ball::getLife(){return vie;}

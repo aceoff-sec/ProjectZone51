@@ -388,7 +388,7 @@ void MyGLWidget::Again() {
 }
 
 void MyGLWidget::displayInfo() {
-    time_ = QString::number(m_TimeElapsed);
+    time_ = QString::number((int)m_TimeElapsed);
     score_ = QString::number(score);
     level_ = QString::number(level);
     nbBalls_ = QString::number(nbBalls);

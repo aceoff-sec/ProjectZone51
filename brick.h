@@ -6,57 +6,48 @@
 #ifndef BRICK_H
 #define BRICK_H
 
-// Classe qui permet de gérer les briques et leur affchage, ainsi que le nombre de points par briques en fonction des vie des briques
+// Classe qui permet de gérer les briques et leur affchage, ainsi que le nombre de points par briques en fonction des vie des briques (Adrien)
 class brick: public Object // Hérite de classe abstraite Object
 {
 public:
-    //Constructeur
-    brick(QString name, int id, QImage imb);
-
-    // Destructeur
-    virtual ~brick();
-
-    // Methode d'affichage
-    virtual void Display();
-    // Methodes relatives à la vie
-    virtual void LoseLife();
-    int getLife();
-
-
-    virtual float getInfo(QString value);
-    virtual QString getName();
-    virtual int getId();
-    void setX(float X);
-    void setY(float Y);
-    void setR(float R_) { R = R_; }
-    void setV(float V_) { V = V_; }
-    void setB(float B_) { B = B_; }
-    void setPoint(float point_) { point = point_; }
-    void setVie(int vie_) { vie = vie_; }
-    float getPoint() { return point; }
-    float getX();
-    float getY();
-
-    void setImage(QImage imb);
+    brick(QString name, int id, QImage imb);  //Constructeur qui prendre en paramètre un nom pour identifier l'objet, un identifiant et une image
+    virtual ~brick();  // Destructeur
+    virtual void Display(); // Méthode d'affichage
+    virtual void LoseLife(); // Méthodes relatives à la vie (perd une vie)
+    int getLife(); // Méthode qui retourne la vie d'une brique
+    virtual float getInfo(QString value); // Méthode qui retourne differents paramètre selon la valeur
+    virtual QString getName(); // Méthode qui retourne le nom de l'objet
+    virtual int getId(); // Méthode qui retourne l'identifiant de la brique
+    void setX(float X); // Méthode qui actualise une variable
+    void setY(float Y); // Méthode qui actualise une variable
+    void setR(float R_) { R = R_; } // Méthode qui actualise une variable
+    void setV(float V_) { V = V_; } // Méthode qui actualise une variable
+    void setB(float B_) { B = B_; } // Méthode qui actualise une variable
+    void setPoint(float point_) { point = point_; } // Méthode qui actualise une variable
+    void setVie(int vie_) { vie = vie_; } // Méthode qui actualise une variable
+    float getPoint() { return point; } // Méthode retourne l'état d'une variable
+    float getX(); // Méthode retourne l'état d'une variable
+    float getY(); // Méthode retourne l'état d'une variable
+    void setImage(QImage imb); // Méthode retourne l'état d'une variable
 private :
-    float x;
-    float y;
-    float z;
-    float size;
-    int vie;
-    float point;
-    GLUquadric* quadrique;
-    QImage im_b;
-    GLuint texture;
-    float infox;
-    float infoy;
-    float infow;
-    float infoh;
-    int id_;
-    QString name_;
-    float R =158;
-    float V =253;
-    float B =56;
+    float x; // Coordonnée X
+    float y; // Coordonnée Y
+    float z; // Coordonnée Z
+    float size; // Largeur de la brique
+    int vie; // Vie de la brique
+    float point; // Point que rapporte la brique quand elle est détruite
+    GLUquadric* quadrique; // Quadrique pour dessiner une brique
+    QImage im_b; // Pour image brique
+    GLuint texture; // Pour texture brique
+    float infox; // Informations sur la position X de la brique
+    float infoy; // Informations sur la position Y de la brique
+    float infow; // Informations sur la largeur de la brique
+    float infoh; // Informations sur la hauteur de la brique
+    int id_; // Identifiant de la brique
+    QString name_; // Nom de l'objet brique
+    float R =158; // Composante rouge
+    float V =253; // Composante verte
+    float B =56; // Composante bleue
 
 };
 

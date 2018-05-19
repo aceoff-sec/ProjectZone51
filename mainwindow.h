@@ -15,20 +15,16 @@
 namespace Ui {
 class MainWindow;
 }
-
+// Classe qui permet de gérer la caméra et de la placer dans le QLabel (Nicolas)
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
-
 public:
-    explicit MainWindow(QWidget *parent = 0);
-    ~MainWindow();
-
-
+    explicit MainWindow(QWidget *parent = 0); // Constructeur explicite du ui
+    ~MainWindow(); // Destructeur
 private:
-    Ui::MainWindow *ui;
-    // Pour utiliser la caméra
-    cv::VideoCapture * webCam_;
+    Ui::MainWindow *ui; // Lien vers le ui
+    cv::VideoCapture * webCam_; // Pour utiliser la caméra
     // Taille de la capture
     int frameWidth=320;
     int frameHeight=240;
@@ -46,10 +42,9 @@ private:
     cv::Mat frame1,frame2,frameRect1,frameRect2;
     // Stocker le résultat de matchTemplate
     cv::Mat resultImage;
-
 private slots:
-    void capture();
-    void game();
+    void capture(); // Permet de rendre la caméra active et de gérer le mouvement du palet selon le déplacement horizontal
+    void game(); // Permet d'appeler la fenêtre de dialogue permettant de choisir le taille du palet et de voir le tableau des scores
 };
 
 #endif // MAINWINDOW_H
