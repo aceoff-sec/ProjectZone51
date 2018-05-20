@@ -85,7 +85,17 @@ void Puck::Display()
 
 void Puck::moveLeft() {
     if(x>=-83+(size/2)) {
-        x=x-6;
+        for(int i=0; i<10;i++) {
+            if(i<6) {
+                x=x-1;
+            }
+            if(i >= 6 && i<9) {
+                x=x-0.5;
+            }
+            if(i==9) {
+                x=x-0.15;
+            }
+        }
         infox=x;
     }
     else {
@@ -95,7 +105,17 @@ void Puck::moveLeft() {
 
 void Puck::moveRight() {
     if(x<=53-(size/2)) {
-        x=x+6;
+        for(int i=0; i<10;i++) {
+            if(i<6) {
+                x=x+1;
+            }
+            if(i >= 6 && i<9) {
+                x=x+0.5;
+            }
+            if(i==9) {
+                x=x+0.15;
+            }
+        }
         infox=x;
     }
     else {

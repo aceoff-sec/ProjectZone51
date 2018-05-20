@@ -106,14 +106,10 @@ void MainWindow::capture()
 
             if(MyGLWidget::getSpace()) {
                 if((vect.x+vect2.x)/2 < -5 && ((vect.y+vect2.y)/2 < 0.5 || (vect.y+vect2.y)/2 > -(0.5))) {
-                    for(int i=0; i<(-(vect.x+vect2.x)/2)%5; i++) {
-                        MyGLWidget::moveLeft();
-                    }
+                    MyGLWidget::moveLeft();
                 }
                 if((vect.x+vect2.x)/2 > 5 && ((vect.y+vect2.y)/2 < 0.5 || (vect.y+vect2.y)/2 > -(0.5)) )  {
-                    for(int i=0; i<((vect.x+vect2.x)/2)%5; i++) {
-                        MyGLWidget::moveRight();
-                    }
+                    MyGLWidget::moveRight();
                 }
                 if((vect.y+vect2.y)/2 > 10 && ((vect.x+vect2.x)/2 < 3 || (vect.x+vect2.x)/2 > -3)) {
                     MyGLWidget::moveStop();
