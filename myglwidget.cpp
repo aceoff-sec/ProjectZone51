@@ -29,32 +29,27 @@ MyGLWidget::MyGLWidget(QWidget * parent) : QGLWidget(parent)
     // Reglage de la taille/position
 
     move(QApplication::desktop()->screen()->rect().center() - rect().center());
+    //Chargement texture
+    image_ = QGLWidget::convertToGLFormat(QImage(":/fond.jpg"));
 }
 
 
 // Fonction d"initialisation
 void MyGLWidget::initializeGL()
 {
-    // Reglage de la couleur de fond
-    glClearColor(0.f, 0.f, 0.f,0.f);
-    //Lumière
-   // glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
-    // Activation du zbuffer
 
+    //Lumière
     glEnable(GL_LIGHTING);
-        //Premiere lampe
+
         GLfloat param[]={1.,1.,1.,1.0};
         glLightfv(GL_LIGHT0, GL_AMBIENT_AND_DIFFUSE,param);
-        GLfloat position[]={0.0,0.0,1.,0.0};
+        GLfloat position[]={-2.,0.0,50.,1.0};
         glLightfv(GL_LIGHT0,GL_POSITION,position);
-        //Deuxieme lampe
-        /*glLightfv(GL_LIGHT1, GL_AMBIENT_AND_DIFFUSE,param);
-        GLfloat position2[]={-20.0,0.0,-40.,0.0};
-        glLightfv(GL_LIGHT0,GL_POSITION,position2);*/
     glEnable(GL_LIGHT0);
-    //glEnable(GL_LIGHT1);
 
-        glEnable(GL_DEPTH_TEST);
+
+
+       glEnable(GL_DEPTH_TEST);
     //ajout
     ball1_ = new Ball(-5,-5,1.5,1);
     ball2_ = new Ball(-5,-5,1.5,2);
@@ -73,7 +68,7 @@ void MyGLWidget::initializeGL()
     m_object.push_back(puck_);
     m_object.push_back(walls_);
 
-    image_ = QGLWidget::convertToGLFormat(QImage(":/fond.jpg"));
+
 
     // Create an openGL texture
     glGenTextures(1, &texture);
@@ -116,26 +111,34 @@ void MyGLWidget::paintGL()
     // Reinitialisation des tampons
     glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
     // Definition de la position de la camera
-    gluLookAt(0,-2,22,0,0,0,0,1,0);
+    gluLookAt(3,-2,22,0,0,0,0,1,0);
     glLoadIdentity();
+    //Application Texture
     glEnable(GL_TEXTURE_2D);
-    glDisable(GL_DEPTH_TEST);
-    //glColor3f(1.0f,1.0f,1.0f);
-    GLfloat param1[]={1.,1.,1.,1.0};
-    glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,param1);
+    GLfloat color[]={1.,1.,1.,1};
+    GLfloat won[]={0.,1.,0.,1.};
+    GLfloat lose[]={1.,0.,0.,1.};
+    GLfloat Noir[]={0.,0.,0.,1.};
+    //
+    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE,color);
+    if(vict==1){glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE,lose);}
+    if(vict==2){glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE,won);}
 
+    glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION,Noir);
+    //Dessin de la zone de jeu
     glBegin(GL_QUADS);
-        glTexCoord2f(0.0f, 0.0f); glVertex2f( -100.0f, -50.0f);
-        glTexCoord2f(0.0f, 1.0f); glVertex2f( -100.0f, 50.0f);
-        glTexCoord2f(1.0f, 1.0f); glVertex2f( 100.0f, 50.0f);
-        glTexCoord2f(1.0f, 0.0f); glVertex2f( 100.0f, -50.0f);
+
+    glNormal3d ( 0,0,1);
+        glTexCoord3f(0.0f, 0.0f,-3.f); glVertex3f( -100.0f, -50.0f,-3.f);
+        glTexCoord3f(0.0f, 1.0f,-3.f); glVertex3f( -100.0f, 50.0f,-3.f);
+        glTexCoord3f(1.0f, 1.0f,-3.f); glVertex3f( 100.0f, 50.0f,-3.f);
+        glTexCoord3f(1.0f, 0.0f,-3.f); glVertex3f( 100.0f, -50.0f,-3.f);
     glEnd();
 
     glDisable(GL_TEXTURE_2D);
-    glEnable(GL_DEPTH_TEST);
 
 
-
+    //Test et affichage des balles
     if(firstBall == true && secondBall == false && thirdBall == false) {
         m_ball[0]->Display();
 
@@ -156,10 +159,13 @@ void MyGLWidget::paintGL()
         }
     }
 
+    //Affichage des briques et du palet
     for(Object * obj : m_object) {
     obj->Display();}
 
     displayInfo();
+    glLoadIdentity();
+
 }
 
 
@@ -196,13 +202,14 @@ void MyGLWidget::contact(Ball *boulet,Object *obj)
                     thirdBall = true;
                 }
                 if(boulet->getId() == 3) {
+                    vict=1;
                     firstBall = false;
                     secondBall = false;
                     thirdBall = false;
                     save(name_,(float)score);
                     QMessageBox msgBox;
-                    msgBox.setText("Vous avez perdu !");
-                    msgBox.setInformativeText("Voulez vous recommencer ?");
+                    msgBox.setText("You lose !");
+                    msgBox.setInformativeText("Retry ?");
                     msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
                     msgBox.setDefaultButton(QMessageBox::Yes);
                     int ret = msgBox.exec();
@@ -254,14 +261,15 @@ void MyGLWidget::contact(Ball *boulet,Object *obj)
                         createBrick();
                     }
                     if(nbBrick == 0 && level ==3) {
+                        vict=2;
                         firstBall = false;
                         secondBall = false;
                         thirdBall = false;
 
                         QMessageBox msgBox;
                         save(name_,(float)score);
-                        msgBox.setText("Vous avez gagné !");
-                        msgBox.setInformativeText("Voulez vous recommencer ?");
+                        msgBox.setText("You won !");
+                        msgBox.setInformativeText("Retry ?");
                         msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
                         msgBox.setDefaultButton(QMessageBox::Yes);
                         int ret = msgBox.exec();

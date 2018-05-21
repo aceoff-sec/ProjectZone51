@@ -35,21 +35,24 @@ void Puck::Display()
 {
 
      glPushMatrix();
-    glDisable(GL_COLOR_MATERIAL);
+
 
     //translate
     glTranslatef(x,y,z);
     // Affichage de la quadrique
 
     GLfloat colorAmbiante[]={249/255.,66/255.,158/255.,1.};
-
+     GLfloat Noir[]={0.,0.,0.,1.};
     glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE,colorAmbiante);
-    GLfloat Noir[]={0.,0.,0.,1.};
+
     glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION,Noir);
 
+    glEnable(GL_AUTO_NORMAL);
     //Dessine un parallelipipaide
     glBegin(GL_QUADS);
-    //glColor3ub(249,66,158);
+
+
+    glNormal3d ( 0, 0, 1.5);
     glVertex3f(30+(size/2), 1., 0.); glVertex3f( -1-(size/2), 1., 0.);
     glVertex3f( -1-(size/2), -1., 0.);
     glVertex3f(30+(size/2), -1., 0.);

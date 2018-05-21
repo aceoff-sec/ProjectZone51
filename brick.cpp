@@ -46,8 +46,12 @@ void brick::Display()
      GLfloat colorAmbiante[]={R/255.,V/255.,B/255.,1};
 
      GLfloat Noir[]={0.,0.,0.,1.};
-     glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE,colorAmbiante);
+     //
+
+     glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE,colorAmbiante);
+     glMaterialfv(GL_BACK,GL_AMBIENT_AND_DIFFUSE,Noir);
      glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION,Noir);
+
     //translate
     glTranslatef(x,y,z);
     // Affichage de la quadrique
@@ -60,7 +64,8 @@ void brick::Display()
     //Dessine un parallelipipaide
     glBegin(GL_QUADS);
 
-        //glColor3ub(R, V, B);
+       glNormal3d ( 0, 0, 1.5);
+
         glVertex3f(-70, 48, 0);
         glVertex3f( -83, 48, 0);
         glVertex3f( -83, 42, 0);

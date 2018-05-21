@@ -74,6 +74,7 @@ private:
     static bool space; // Si la barre d'espace a été activée
     bool firstspace = true; // Si c'est la première fois qu'on appuie sur la barre d'espace
     bool firstTime = true; // Si c'est la première fois que l'on commence le niveau
+    int vict=0;//Indique la victoire 2 ou la défaite 1 ou la partie continue 0
 };
 
 #endif // MYGLWIDGET_H

@@ -37,7 +37,7 @@ void Wall::Display()
     //Dessine un rectangle
     glBegin(GL_POLYGON) ;
     glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE,colorAmbianteB);
-    glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION,Noir);
+    //glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION,Noir);
     glVertex2f(-90.0F,-0.5F) ;
 
     glVertex2f(-90.0F,0.5F) ;
@@ -58,7 +58,7 @@ void Wall::Display()
     glBegin(GL_POLYGON) ;
     glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE,colorAmbianteH);
 
-    glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION,Noir);
+    //glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION,Noir);
 
     glVertex2f(-90.0F,-0.5F) ;
 
