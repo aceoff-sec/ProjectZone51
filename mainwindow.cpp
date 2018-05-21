@@ -45,7 +45,7 @@ void MainWindow::capture()
             // Point central du vecteur
             cv::Point workingCenter(workingRect.x+subImageWidth/2,workingRect.y+subImageHeight/2);
 
-            // Rectangle vert dans lequel on repère la main
+            // Rectangle rouge dans lequel on repère aussi la main
             cv::Rect workingRect2(40+(frameWidth-subImageWidth)/2,frameHeight/2+(frameHeight/2-subImageHeight)/2,subImageWidth,subImageHeight);
             // Rectangle motif que l'on compare
             cv::Rect templateRect2((workingRect2.width-templateWidth)/2,(workingRect2.height-templateHeight)/2,templateWidth,templateHeight);
@@ -104,6 +104,7 @@ void MainWindow::capture()
 
             noFirstFrame=true;
 
+            //Déplacement du palet selon des critères précis
             if(MyGLWidget::getSpace()) {
                 if((vect.x+vect2.x)/2 < -5 && ((vect.y+vect2.y)/2 < 0.5 || (vect.y+vect2.y)/2 > -(0.5))) {
                     MyGLWidget::moveLeft();

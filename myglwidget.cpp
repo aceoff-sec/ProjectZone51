@@ -13,8 +13,6 @@ Puck* MyGLWidget::puck_;
 bool MyGLWidget::space= false;
 QString MyGLWidget::name_;
 
-
-
 // Constructeur
 MyGLWidget::MyGLWidget(QWidget * parent) : QGLWidget(parent)
 {
@@ -23,33 +21,26 @@ MyGLWidget::MyGLWidget(QWidget * parent) : QGLWidget(parent)
         m_TimeElapsed += 1.0f / 12.0f;
         updateGL();
     });
-
     m_AnimationTimer.setInterval(20);
     m_AnimationTimer.start();
     // Reglage de la taille/position
-
     move(QApplication::desktop()->screen()->rect().center() - rect().center());
     //Chargement texture
     image_ = QGLWidget::convertToGLFormat(QImage(":/fond.jpg"));
 }
 
-
 // Fonction d"initialisation
 void MyGLWidget::initializeGL()
 {
-
     //Lumière
     glEnable(GL_LIGHTING);
-
-        GLfloat param[]={1.,1.,1.,1.0};
-        glLightfv(GL_LIGHT0, GL_AMBIENT_AND_DIFFUSE,param);
-        GLfloat position[]={-2.,0.0,50.,1.0};
-        glLightfv(GL_LIGHT0,GL_POSITION,position);
+    GLfloat param[]={1.,1.,1.,1.0};
+    glLightfv(GL_LIGHT0, GL_AMBIENT_AND_DIFFUSE,param);
+    GLfloat position[]={-2.,0.0,50.,1.0};
+    glLightfv(GL_LIGHT0,GL_POSITION,position);
     glEnable(GL_LIGHT0);
 
-
-
-       glEnable(GL_DEPTH_TEST);
+    glEnable(GL_DEPTH_TEST);
     //ajout
     ball1_ = new Ball(-5,-5,1.5,1);
     ball2_ = new Ball(-5,-5,1.5,2);
@@ -62,13 +53,9 @@ void MyGLWidget::initializeGL()
     nbBrick = 0;
     score = 0;
     level = 1;
-
     createBrick();
-
     m_object.push_back(puck_);
     m_object.push_back(walls_);
-
-
 
     // Create an openGL texture
     glGenTextures(1, &texture);
@@ -76,14 +63,7 @@ void MyGLWidget::initializeGL()
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image_.width(), image_.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, static_cast<GLubyte*>(image_.bits()));
-
-
-
-
-
-
 }
-
 
 // Fonction de redimensionnement
 void MyGLWidget::resizeGL(int width, int height)
@@ -100,7 +80,6 @@ void MyGLWidget::resizeGL(int width, int height)
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 }
-
 
 // Fonction d"affichage
 void MyGLWidget::paintGL()
@@ -134,9 +113,7 @@ void MyGLWidget::paintGL()
         glTexCoord3f(1.0f, 1.0f,-3.f); glVertex3f( 100.0f, 50.0f,-3.f);
         glTexCoord3f(1.0f, 0.0f,-3.f); glVertex3f( 100.0f, -50.0f,-3.f);
     glEnd();
-
     glDisable(GL_TEXTURE_2D);
-
 
     //Test et affichage des balles
     if(firstBall == true && secondBall == false && thirdBall == false) {
@@ -165,9 +142,7 @@ void MyGLWidget::paintGL()
 
     displayInfo();
     glLoadIdentity();
-
 }
-
 
 void MyGLWidget::contact(Ball *boulet,Object *obj)
 {
@@ -177,17 +152,14 @@ void MyGLWidget::contact(Ball *boulet,Object *obj)
     if(obj->getName()=="Wall") {
         if (boulet->getX()+boulet->getR() > ORTHO_DIM*ASPECT_RATIO){
             boulet->setdx(-dx);//droit
-
         }
         if (boulet->getX()-boulet->getR() < -ORTHO_DIM*ASPECT_RATIO){
             boulet->setdx(-dx);
             //gauche
         }
-
         if (boulet->getY()+boulet->getR() > ORTHO_DIM){
             boulet->setdy(-dy);//haut
         }
-
         if(boulet->getY()+boulet->getR() < -ORTHO_DIM) {
             nbBalls--;
             if(m_ball.size() != 0)  {
@@ -231,7 +203,6 @@ void MyGLWidget::contact(Ball *boulet,Object *obj)
         }
     }
 
-//
     if(obj->getName()=="Brick" && obj->getLife()!=0) {
         if(boulet->getY()-boulet->getR()<=obj->getInfo("y")+obj->getInfo("h") && boulet->getY()+boulet->getR()>=obj->getInfo("y") ) {
 
@@ -293,7 +264,6 @@ void MyGLWidget::contact(Ball *boulet,Object *obj)
           }}
     }
 
-
     if(obj->getName()=="Puck") {
         if(boulet->getY()-boulet->getR() <= obj->getInfo("posy")+obj->getInfo("posh")) { //Au niveau du palet
 
@@ -319,7 +289,7 @@ void MyGLWidget::contact(Ball *boulet,Object *obj)
         }
     }
 
-    if(space) {
+    if(space) { //Si la partie a commencé
        boulet->setPos();
     }
 }
@@ -334,21 +304,19 @@ void MyGLWidget::keyPressEvent(QKeyEvent * event)
         {
             exit(0);
         }
-
         // Mouvement du palet à gauche
         case Qt::Key_Left:
         {
             moveLeft();
             break;
         }
-
         // Mouvement du palet à droite
         case Qt::Key_Right:
         {
             moveRight();
             break;
         }
-
+        // Si on décide de lancer la partie en pressant "Espace"
         case Qt::Key_Space:
         {
             if(firstspace) {
@@ -357,7 +325,6 @@ void MyGLWidget::keyPressEvent(QKeyEvent * event)
                 break;
             }
         }
-
         // Cas par defaut
         default:
         {
@@ -366,10 +333,8 @@ void MyGLWidget::keyPressEvent(QKeyEvent * event)
             return;
         }
     }
-
     // Acceptation de l"evenement et mise a jour de la scene
     event->accept();
-
 }
 
 void MyGLWidget::Again() {
@@ -389,7 +354,6 @@ void MyGLWidget::Again() {
     m_ball.push_back(ball2_);
     m_ball.push_back(ball3_);
     m_ball.push_back(ball4_);
-
 
     for (int i=0;i<10;i++){
         for(int j=0;j<5;j++){
@@ -413,6 +377,7 @@ void MyGLWidget::Again() {
     space = !space;
     firstspace = !firstspace;
     firstTime = !firstTime;
+    vict = 0;
 }
 
 void MyGLWidget::displayInfo() {
@@ -437,7 +402,6 @@ void MyGLWidget::displayInfo() {
         }
         renderText(3,320,"Time :" + time_,font);
     }
-
 }
 
 bool MyGLWidget::Nottouched(Object *obj,std::vector<int> vect){
@@ -465,9 +429,13 @@ void MyGLWidget::moveStop() {
         puck_->moveStop();
     }
 }
+
+// Crée
 void MyGLWidget::createBrick() {
     for (int i=0;i<10;i++){
         for(int j=0;j<5;j++){
+            brick_= new brick("Brick",i+j,image_b);
+
             if((j==2 || j==4) && level==2) {
                 brick_->setR(250);
                 brick_->setV(250);
@@ -482,10 +450,9 @@ void MyGLWidget::createBrick() {
                 brick_ ->setPoint(5);
                 brick_->setVie(3);
             }
-            brick_= new brick("Brick",i+j,image_b);
+
             brick_->setY(-j*10.);
             brick_->setX(i*17);
-
             m_object.push_back(brick_);
             nbBrick++;
         }
@@ -493,10 +460,12 @@ void MyGLWidget::createBrick() {
     updateGL();
 }
 
+// Règle la taille du palet
 void MyGLWidget::setSize(float size) {
     puck_->setSize(size);
 }
 
+// Permet de sauvegarder dans un fichier lu au démarrage de l'application le nom du joueur et son score
 void MyGLWidget::save(QString player, float val) {
     if(!player.toStdString().empty()) {
         std::fstream os("scores.txt",std::ios::app);

@@ -25,6 +25,7 @@ StartGame::~StartGame()
     delete ui;
 }
 
+//Fenêtre de dialogue permettant de donner le nom du joueur et de définir la taille du palet
 void StartGame::start() {
     QString player = ui->lineEdit->text();
     float size = ui->spinBox->value();
